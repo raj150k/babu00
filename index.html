@@ -1,0 +1,2206 @@
+```html
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Babu 00 - Premium Gaming Platform</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5.0.8/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/hind-siliguri@5.0.8/index.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', 'Poppins', sans-serif; }
+:root {
+  --bg: #070912;
+  --bg2: #0d111f;
+  --card: rgba(22, 28, 45, 0.7);
+  --card-solid: #161c2d;
+  --card2: #1e2540;
+  --gold: #ffd700;
+  --gold2: #f59e0b;
+  --gold3: #fbbf24;
+  --red: #ef4444;
+  --green: #10b981;
+  --violet: #8b5cf6;
+  --blue: #3b82f6;
+  --pink: #ec4899;
+  --text: #f3f4f6;
+  --muted: #9ca3af;
+  --border: rgba(255,215,0,0.12);
+  --border2: rgba(255,255,255,0.08);
+  --glow: 0 0 40px rgba(255,215,0,0.3);
+}
+html, body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+/* Animated background */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: -2;
+  background: 
+    radial-gradient(circle at 15% 20%, rgba(255,215,0,0.12), transparent 45%),
+    radial-gradient(circle at 85% 70%, rgba(139,92,246,0.12), transparent 45%),
+    radial-gradient(circle at 50% 100%, rgba(236,72,153,0.08), transparent 50%),
+    var(--bg);
+}
+#particles { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--gold), var(--gold2)); border-radius: 4px; }
+
+/* Top ticker */
+.ticker {
+  background: linear-gradient(90deg, rgba(255,215,0,0.08), rgba(139,92,246,0.08));
+  border-bottom: 1px solid var(--border);
+  padding: 8px 0; overflow: hidden; white-space: nowrap;
+  font-size: 13px; color: var(--muted);
+}
+.ticker-track { display: inline-block; animation: scroll 40s linear infinite; }
+.ticker-item { display: inline-block; margin: 0 24px; }
+.ticker-item .win { color: var(--gold); font-weight: 700; }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* Navbar */
+.navbar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(7,9,18,0.85); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+}
+.logo { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.logo-icon {
+  width: 46px; height: 46px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; color: #000; font-weight: 900;
+  box-shadow: 0 0 25px rgba(255,215,0,0.5), inset 0 0 20px rgba(255,255,255,0.2);
+  position: relative; overflow: hidden;
+}
+.logo-icon::after {
+  content: ''; position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%);
+  animation: shine 3s infinite;
+}
+@keyframes shine { 0% { transform: translateX(-100%) translateY(-100%); } 100% { transform: translateX(100%) translateY(100%); } }
+.logo-text {
+  font-size: 26px; font-weight: 900; letter-spacing: 1px;
+  background: linear-gradient(135deg, var(--gold), #fff, var(--gold));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  text-shadow: 0 0 30px rgba(255,215,0,0.3);
+}
+.logo-sub { font-size: 10px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-top: -4px; }
+.nav-links { display: flex; gap: 8px; align-items: center; }
+.nav-btn {
+  background: transparent; border: 1px solid transparent; color: var(--text);
+  padding: 9px 16px; border-radius: 10px; cursor: pointer; font-weight: 500;
+  transition: all 0.2s; font-size: 14px;
+}
+.nav-btn:hover { background: rgba(255,215,0,0.08); border-color: var(--border); }
+.nav-btn.primary {
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: #000; font-weight: 700;
+  box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+}
+.nav-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,215,0,0.5); }
+.balance-badge {
+  display: flex; align-items: center; gap: 10px;
+  background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(245,158,11,0.08));
+  padding: 9px 16px; border-radius: 12px;
+  border: 1px solid var(--gold); cursor: pointer;
+  transition: all 0.2s;
+}
+.balance-badge:hover { box-shadow: 0 0 20px rgba(255,215,0,0.3); transform: translateY(-1px); }
+.balance-badge .amt { color: var(--gold); font-weight: 800; font-size: 15px; }
+
+.container { max-width: 1360px; margin: 0 auto; padding: 24px; }
+
+/* Hero */
+.hero {
+  position: relative; border-radius: 24px; overflow: hidden;
+  padding: 70px 50px; margin-bottom: 32px;
+  background: linear-gradient(135deg, #1a1f3a 0%, #2d1b4e 50%, #1a1f3a 100%);
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(255,215,0,0.3) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(139,92,246,0.3) 0%, transparent 40%);
+  animation: heroGlow 8s ease-in-out infinite alternate;
+}
+@keyframes heroGlow { 0% { opacity: 0.6; } 100% { opacity: 1; } }
+.hero-content { position: relative; z-index: 2; max-width: 650px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,215,0,0.15); border: 1px solid var(--gold);
+  padding: 6px 14px; border-radius: 20px; font-size: 12px; color: var(--gold);
+  font-weight: 600; margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: 54px; font-weight: 900; line-height: 1.1; margin-bottom: 18px;
+  background: linear-gradient(135deg, var(--gold) 0%, #fff 50%, var(--gold) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  text-shadow: 0 0 40px rgba(255,215,0,0.3);
+}
+.hero p { color: #d1d5db; font-size: 17px; margin-bottom: 28px; line-height: 1.7; }
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Jackpot counter */
+.jackpot {
+  position: absolute; top: 30px; right: 40px; z-index: 2;
+  text-align: center;
+}
+.jackpot-label { font-size: 12px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+.jackpot-amount {
+  font-size: 36px; font-weight: 900; color: var(--gold);
+  text-shadow: 0 0 30px rgba(255,215,0,0.6);
+  font-family: 'Poppins', monospace;
+}
+.jackpot-sub { font-size: 11px; color: var(--gold); opacity: 0.8; margin-top: 4px; }
+
+/* Stats strip */
+.stats-strip {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px; margin-bottom: 32px;
+}
+.stat-card {
+  background: var(--card); backdrop-filter: blur(10px);
+  border: 1px solid var(--border); border-radius: 16px;
+  padding: 22px; display: flex; align-items: center; gap: 16px;
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.stat-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.stat-card:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(255,215,0,0.1); }
+.stat-card:hover::before { opacity: 1; }
+.stat-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center; font-size: 24px;
+  background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.05));
+  border: 1px solid var(--border);
+}
+.stat-label { color: var(--muted); font-size: 13px; margin-bottom: 4px; }
+.stat-value { font-size: 22px; font-weight: 800; color: var(--gold); }
+
+/* Section */
+.section-title {
+  font-size: 26px; font-weight: 800; margin-bottom: 22px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-title::before { content: ''; width: 4px; height: 28px; background: linear-gradient(var(--gold), var(--gold2)); border-radius: 2px; }
+.section-sub { color: var(--muted); font-size: 14px; margin-top: -16px; margin-bottom: 24px; }
+
+/* Games grid */
+.games-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 22px; margin-bottom: 40px;
+}
+.game-card {
+  background: var(--card); backdrop-filter: blur(10px);
+  border: 1px solid var(--border); border-radius: 18px;
+  overflow: hidden; cursor: pointer; transition: all 0.3s; position: relative;
+}
+.game-card:hover { transform: translateY(-6px); border-color: var(--gold); box-shadow: 0 20px 40px rgba(255,215,0,0.2); }
+.game-thumb {
+  height: 170px; background-size: cover; background-position: center;
+  position: relative; display: flex; align-items: center; justify-content: center;
+  font-size: 70px; overflow: hidden;
+}
+.game-thumb::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85), transparent 60%);
+}
+.game-tag {
+  position: absolute; top: 12px; right: 12px; z-index: 2;
+  padding: 4px 12px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: #000; font-size: 11px; font-weight: 800; letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(255,215,0,0.4);
+}
+.game-live {
+  position: absolute; top: 12px; left: 12px; z-index: 2;
+  padding: 4px 10px; border-radius: 8px;
+  background: rgba(239,68,68,0.9); color: #fff;
+  font-size: 10px; font-weight: 700; letter-spacing: 1px;
+  display: flex; align-items: center; gap: 5px;
+}
+.game-live::before {
+  content: ''; width: 6px; height: 6px; background: #fff; border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+.game-info { padding: 18px; }
+.game-name { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+.game-desc { color: var(--muted); font-size: 13px; margin-bottom: 12px; line-height: 1.5; }
+.game-meta { display: flex; justify-content: space-between; align-items: center; }
+.game-players { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+.game-play-btn {
+  padding: 6px 14px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: #000; font-size: 12px; font-weight: 700;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px);
+  z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px;
+  animation: fadeIn 0.2s;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: linear-gradient(145deg, var(--bg2), var(--bg));
+  border: 1px solid var(--border); border-radius: 20px;
+  max-width: 520px; width: 100%; max-height: 90vh; overflow-y: auto;
+  animation: slideUp 0.3s; box-shadow: 0 25px 80px rgba(0,0,0,0.7);
+}
+.modal.lg { max-width: 820px; }
+.modal.xl { max-width: 1140px; }
+.modal-header {
+  padding: 22px 24px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(135deg, rgba(255,215,0,0.05), transparent);
+}
+.modal-title { font-size: 20px; font-weight: 800; }
+.modal-close {
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+  color: var(--muted); font-size: 18px; cursor: pointer;
+  width: 34px; height: 34px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.modal-close:hover { background: var(--red); color: #fff; border-color: var(--red); }
+.modal-body { padding: 26px; }
+
+/* Forms */
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; margin-bottom: 8px; font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: 0.3px; }
+.form-input, .form-select, .form-textarea {
+  width: 100%; padding: 13px 16px;
+  background: var(--card-solid); border: 1px solid var(--border);
+  border-radius: 12px; color: var(--text); font-size: 14px;
+  transition: all 0.2s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none; border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(255,215,0,0.1);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* Buttons */
+.btn {
+  padding: 13px 26px; border-radius: 12px; border: none; cursor: pointer;
+  font-weight: 700; font-size: 14px; transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 8px; justify-content: center;
+  letter-spacing: 0.3px;
+}
+.btn-gold { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: #000; box-shadow: 0 4px 15px rgba(255,215,0,0.3); }
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,215,0,0.5); }
+.btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); background: rgba(255,215,0,0.05); }
+.btn-red { background: linear-gradient(135deg, #dc2626, #ef4444); color: #fff; }
+.btn-green { background: linear-gradient(135deg, #059669, #10b981); color: #fff; }
+.btn-violet { background: linear-gradient(135deg, #7c3aed, #8b5cf6); color: #fff; }
+.btn-blue { background: linear-gradient(135deg, #2563eb, #3b82f6); color: #fff; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); background: var(--card-solid); }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 13px 18px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
+th { background: var(--card2); font-weight: 700; color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: 0.8px; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,215,0,0.03); }
+
+.badge { display: inline-block; padding: 4px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; }
+.badge-green { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+.badge-red { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+.badge-gold { background: rgba(255,215,0,0.15); color: var(--gold); border: 1px solid rgba(255,215,0,0.3); }
+.badge-blue { background: rgba(59,130,246,0.15); color: var(--blue); border: 1px solid rgba(59,130,246,0.3); }
+.badge-violet { background: rgba(139,92,246,0.15); color: var(--violet); border: 1px solid rgba(139,92,246,0.3); }
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; margin-bottom: 22px; border-bottom: 1px solid var(--border); overflow-x: auto; }
+.tab {
+  padding: 12px 20px; background: transparent; border: none; color: var(--muted);
+  cursor: pointer; font-weight: 600; border-bottom: 2px solid transparent;
+  white-space: nowrap; transition: all 0.2s; font-size: 14px;
+}
+.tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+.tab:hover { color: var(--text); }
+
+/* Payment method cards */
+.payment-methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 16px; }
+.payment-method {
+  padding: 16px 12px; border-radius: 12px;
+  background: var(--card-solid); border: 2px solid var(--border);
+  cursor: pointer; text-align: center; transition: all 0.2s;
+}
+.payment-method:hover { border-color: var(--gold); }
+.payment-method.active { border-color: var(--gold); background: rgba(255,215,0,0.08); box-shadow: 0 0 20px rgba(255,215,0,0.2); }
+.payment-method .pm-icon { font-size: 28px; margin-bottom: 6px; }
+.payment-method .pm-name { font-size: 13px; font-weight: 700; }
+
+/* Deposit info box */
+.deposit-info {
+  background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(245,158,11,0.05));
+  border: 1px solid var(--gold); border-radius: 14px;
+  padding: 18px; margin: 16px 0;
+}
+.deposit-info-title { color: var(--gold); font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.deposit-number {
+  font-size: 28px; font-weight: 900; color: var(--gold);
+  letter-spacing: 2px; margin: 8px 0;
+  font-family: 'Poppins', monospace;
+  display: flex; align-items: center; gap: 10px;
+}
+.copy-btn {
+  padding: 6px 12px; background: var(--gold); color: #000;
+  border: none; border-radius: 8px; font-size: 12px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s;
+}
+.copy-btn:hover { transform: scale(1.05); }
+
+/* Color prediction */
+.color-game { text-align: center; }
+.timer-display {
+  font-size: 72px; font-weight: 900; color: var(--gold); margin: 20px 0;
+  font-family: 'Poppins', monospace;
+  text-shadow: 0 0 40px rgba(255,215,0,0.5);
+  letter-spacing: 4px;
+}
+.period-id {
+  color: var(--muted); font-size: 13px; margin-bottom: 8px;
+  padding: 6px 14px; background: var(--card-solid); border-radius: 20px;
+  display: inline-block; border: 1px solid var(--border);
+}
+.color-buttons { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 20px 0; }
+.color-btn {
+  padding: 22px; border: none; border-radius: 14px; font-size: 18px; font-weight: 800;
+  cursor: pointer; color: #fff; transition: all 0.2s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.color-btn.red { background: linear-gradient(135deg, #dc2626, #ef4444); }
+.color-btn.green { background: linear-gradient(135deg, #059669, #10b981); }
+.color-btn.violet { background: linear-gradient(135deg, #7c3aed, #8b5cf6); }
+.color-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+.color-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.number-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px 0; }
+.num-btn {
+  padding: 16px; border: 1px solid var(--border); background: var(--card-solid);
+  border-radius: 12px; cursor: pointer; font-weight: 800; font-size: 18px;
+  transition: all 0.2s; color: var(--text);
+}
+.num-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); background: rgba(255,215,0,0.05); transform: scale(1.05); }
+
+/* Dice */
+.dice-container { text-align: center; padding: 20px; }
+.dice-display {
+  width: 140px; height: 140px; margin: 20px auto;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  border-radius: 24px; display: flex; align-items: center; justify-content: center;
+  font-size: 70px; font-weight: 900; color: #000;
+  box-shadow: 0 15px 50px rgba(255,215,0,0.4), inset 0 0 30px rgba(255,255,255,0.2);
+  transition: transform 0.5s;
+}
+.dice-display.rolling { animation: roll 0.6s; }
+@keyframes roll { 0%,100% { transform: rotate(0); } 25% { transform: rotate(180deg) scale(1.1); } 50% { transform: rotate(360deg) scale(1.2); } 75% { transform: rotate(540deg) scale(1.1); } }
+
+/* Mines */
+.mines-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px auto; max-width: 420px; }
+.mine-cell {
+  aspect-ratio: 1; background: linear-gradient(135deg, var(--card2), var(--card-solid));
+  border: 2px solid var(--border);
+  border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 30px; transition: all 0.2s;
+}
+.mine-cell:hover:not(.revealed) { border-color: var(--gold); transform: scale(1.05); box-shadow: 0 0 20px rgba(255,215,0,0.2); }
+.mine-cell.revealed.safe { background: linear-gradient(135deg, #059669, #10b981); border-color: var(--green); animation: pop 0.3s; }
+.mine-cell.revealed.mine { background: linear-gradient(135deg, #dc2626, #ef4444); border-color: var(--red); animation: shake 0.3s; }
+@keyframes pop { 0% { transform: scale(0.5); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+@keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+/* Crash */
+.crash-display {
+  height: 320px; background: linear-gradient(135deg, var(--card-solid), var(--card2));
+  border-radius: 18px; display: flex; align-items: center; justify-content: center;
+  font-size: 90px; font-weight: 900; margin: 20px 0;
+  position: relative; overflow: hidden; border: 1px solid var(--border);
+}
+.crash-display::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at center, rgba(255,215,0,0.1), transparent 70%);
+}
+.crash-multiplier { color: var(--green); transition: color 0.3s; z-index: 1; position: relative; text-shadow: 0 0 40px currentColor; }
+.crash-multiplier.crashed { color: var(--red); }
+
+/* Wheel */
+.wheel-container { position: relative; width: 340px; height: 340px; margin: 20px auto; }
+.wheel {
+  width: 100%; height: 100%; border-radius: 50%;
+  border: 8px solid var(--gold); position: relative;
+  transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+  box-shadow: 0 0 50px rgba(255,215,0,0.4), inset 0 0 30px rgba(0,0,0,0.5);
+}
+.wheel-pointer {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  width: 0; height: 0; border-left: 18px solid transparent; border-right: 18px solid transparent;
+  border-top: 30px solid var(--gold); z-index: 10;
+  filter: drop-shadow(0 0 10px rgba(255,215,0,0.6));
+}
+
+/* Admin */
+.admin-layout { display: grid; grid-template-columns: 260px 1fr; gap: 20px; }
+.admin-sidebar {
+  background: var(--card); backdrop-filter: blur(10px);
+  border: 1px solid var(--border); border-radius: 16px;
+  padding: 18px; height: fit-content; position: sticky; top: 80px;
+}
+.admin-menu-item {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+  border-radius: 10px; cursor: pointer; color: var(--muted); transition: all 0.2s;
+  margin-bottom: 4px; font-size: 14px; font-weight: 500;
+}
+.admin-menu-item:hover { background: rgba(255,215,0,0.05); color: var(--text); }
+.admin-menu-item.active {
+  background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(245,158,11,0.08));
+  color: var(--gold); border-left: 3px solid var(--gold);
+}
+.admin-content {
+  background: var(--card); backdrop-filter: blur(10px);
+  border: 1px solid var(--border); border-radius: 16px;
+  padding: 26px; min-height: 600px;
+}
+
+/* Toast */
+.toast-container { position: fixed; top: 90px; right: 20px; z-index: 2000; display: flex; flex-direction: column; gap: 10px; }
+.toast {
+  background: var(--card-solid); border: 1px solid var(--border); border-radius: 12px;
+  padding: 14px 20px; min-width: 280px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  animation: slideIn 0.3s; display: flex; align-items: center; gap: 12px;
+  backdrop-filter: blur(10px);
+}
+.toast.success { border-color: var(--green); }
+.toast.error { border-color: var(--red); }
+.toast.info { border-color: var(--blue); }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideIn { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+
+.live-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 1.5s infinite; display: inline-block; box-shadow: 0 0 10px var(--green); }
+
+/* Footer */
+footer {
+  margin-top: 60px; padding: 40px 24px; text-align: center;
+  border-top: 1px solid var(--border); color: var(--muted);
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.3));
+}
+footer .logo { justify-content: center; margin-bottom: 16px; }
+.footer-links { display: flex; gap: 24px; justify-content: center; margin: 16px 0; flex-wrap: wrap; }
+.footer-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 34px; }
+  .hero { padding: 40px 24px; }
+  .jackpot { position: static; margin-top: 20px; text-align: left; }
+  .jackpot-amount { font-size: 28px; }
+  .admin-layout { grid-template-columns: 1fr; }
+  .admin-sidebar { position: static; }
+  .nav-links .nav-btn:not(.primary) { display: none; }
+  .form-row { grid-template-columns: 1fr; }
+  .container { padding: 16px; }
+  .navbar { padding: 10px 16px; }
+  .logo-text { font-size: 20px; }
+  .color-buttons { grid-template-columns: 1fr; }
+}
+
+.hidden { display: none !important; }
+
+/* Promo banner */
+.promo-banner {
+  background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(236,72,153,0.1));
+  border: 1px solid var(--border); border-radius: 16px;
+  padding: 20px; margin-bottom: 24px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.promo-icon { font-size: 40px; }
+.promo-text { flex: 1; min-width: 200px; }
+.promo-title { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+.promo-desc { color: var(--muted); font-size: 13px; }
+
+/* VIP levels */
+.vip-strip { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.vip-level {
+  flex: 1; min-width: 120px; padding: 14px; border-radius: 12px;
+  background: var(--card-solid); border: 1px solid var(--border);
+  text-align: center; transition: all 0.2s;
+}
+.vip-level:hover { border-color: var(--gold); transform: translateY(-2px); }
+.vip-level .vip-icon { font-size: 28px; margin-bottom: 6px; }
+.vip-level .vip-name { font-weight: 700; font-size: 13px; }
+.vip-level .vip-bonus { color: var(--gold); font-size: 12px; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<!-- Ticker -->
+<div class="ticker">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="logo" onclick="showPage('home')">
+    <div class="logo-icon">B0</div>
+    <div>
+      <div class="logo-text">BABU 00</div>
+      <div class="logo-sub">PREMIUM GAMING</div>
+    </div>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <button class="nav-btn" onclick="showPage('home')">🏠 হোম</button>
+    <button class="nav-btn" onclick="showPage('games')">🎮 গেমস</button>
+    <button class="nav-btn" onclick="showPage('promo')">🎁 প্রমো</button>
+    <button class="nav-btn" onclick="showPage('vip')">👑 VIP</button>
+    <button class="nav-btn" id="walletBtn" onclick="openWallet()" style="display:none">💰 ওয়ালেট</button>
+    <div class="balance-badge hidden" id="balanceBadge" onclick="openWallet()">
+      <span>💎</span>
+      <span class="amt" id="balanceDisplay">৳0</span>
+    </div>
+    <button class="nav-btn" id="loginBtn" onclick="openAuth('login')">লগইন</button>
+    <button class="nav-btn primary" id="signupBtn" onclick="openAuth('signup')">সাইন আপ</button>
+    <button class="nav-btn hidden" id="profileBtn" onclick="openProfile()">👤 প্রোফাইল</button>
+    <button class="nav-btn hidden" id="adminBtn" onclick="showPage('admin')" style="background:linear-gradient(135deg,var(--violet),var(--pink));color:#fff">⚙️ অ্যাডমিন</button>
+    <button class="nav-btn hidden" id="logoutBtn" onclick="logout()">🚪</button>
+  </div>
+</nav>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- HOME PAGE -->
+<div id="homePage" class="container">
+  <div class="hero">
+    <div class="jackpot">
+      <div class="jackpot-label">🏆 Progressive Jackpot</div>
+      <div class="jackpot-amount" id="jackpotAmount">৳0</div>
+      <div class="jackpot-sub">🔥 Every second growing</div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge"><span class="live-dot"></span> LIVE • ১০,০০০+ খেলোয়াড় অনলাইন</div>
+      <h1>Babu 00 তে স্বাগতম</h1>
+      <p>বাংলাদেশের #১ প্রিমিয়াম অনলাইন গেমিং প্ল্যাটফর্ম। কালার প্রেডিকশন, ডাইস, মাইনস, ক্র্যাশ, হুইল, আরও অনেক গেম খেলে আজই জিতুন লক্ষ টাকা!</p>
+      <div class="hero-btns">
+        <button class="btn btn-gold" onclick="showPage('games')">🎮 এখনই খেলুন</button>
+        <button class="btn btn-outline" onclick="openAuth('signup')">📝 একাউন্ট খুলুন</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="promo-banner">
+    <div class="promo-icon">🎁</div>
+    <div class="promo-text">
+      <div class="promo-title">স্বাগতম বোনাস ১০০% পর্যন্ত!</div>
+      <div class="promo-desc">প্রথম ডিপোজিটে পান ১০০% বোনাস। সর্বোচ্চ ৳১০,০০০ পর্যন্ত!</div>
+    </div>
+    <button class="btn btn-gold" onclick="openAuth('signup')">ক্লেইম করুন</button>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat-card">
+      <div class="stat-icon">👥</div>
+      <div><div class="stat-label">মোট খেলোয়াড়</div><div class="stat-value" id="statUsers">0</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">💰</div>
+      <div><div class="stat-label">আজকের পুরস্কার</div><div class="stat-value" id="statPrize">৳0</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🎮</div>
+      <div><div class="stat-label">মোট বেট</div><div class="stat-value" id="statBets">0</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><span class="live-dot"></span></div>
+      <div><div class="stat-label">অনলাইন</div><div class="stat-value" id="statOnline">0</div></div>
+    </div>
+  </div>
+
+  <h2 class="section-title">🔥 জনপ্রিয় গেমস</h2>
+  <p class="section-sub">সবচেয়ে বেশি খেলা হচ্ছে এখন</p>
+  <div class="games-grid" id="homeGamesGrid"></div>
+
+  <h2 class="section-title">🏆 লাইভ বিজয়ী</h2>
+  <p class="section-sub">রিয়েল-টাইমে যারা জিতছেন</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>খেলোয়াড়</th><th>গেম</th><th>পরিমাণ</th><th>গুণক</th><th>সময়</th></tr></thead>
+      <tbody id="recentWinners"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- GAMES PAGE -->
+<div id="gamesPage" class="container hidden">
+  <h2 class="section-title">🎮 সকল গেমস</h2>
+  <p class="section-sub">আপনার পছন্দের গেম বেছে নিন</p>
+  <div class="games-grid" id="allGamesGrid"></div>
+</div>
+
+<!-- PROMO PAGE -->
+<div id="promoPage" class="container hidden">
+  <h2 class="section-title">🎁 প্রমোশন ও বোনাস</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px">
+      <div style="font-size:40px;margin-bottom:10px">🎁</div>
+      <h3 style="margin-bottom:10px">স্বাগতম বোনাস</h3>
+      <p style="color:var(--muted);margin-bottom:14px;font-size:14px">প্রথম ডিপোজিটে ১০০% বোনাস পান। সর্বোচ্চ ৳১০,০০০ পর্যন্ত!</p>
+      <div style="color:var(--gold);font-weight:700">✅ নতুন সদস্যদের জন্য</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px">
+      <div style="font-size:40px;margin-bottom:10px">💰</div>
+      <h3 style="margin-bottom:10px">ডেইলি ক্যাশব্যাক</h3>
+      <p style="color:var(--muted);margin-bottom:14px;font-size:14px">প্রতিদিন আপনার ক্ষতির ১০% ক্যাশব্যাক পান!</p>
+      <div style="color:var(--gold);font-weight:700">✅ সকল সদস্যদের জন্য</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px">
+      <div style="font-size:40px;margin-bottom:10px">👥</div>
+      <h3 style="margin-bottom:10px">রেফারেল বোনাস</h3>
+      <p style="color:var(--muted);margin-bottom:14px;font-size:14px">বন্ধুদের আমন্ত্রণ করুন এবং প্রতি রেফারেলে ৳৫০০ পান!</p>
+      <div style="color:var(--gold);font-weight:700">✅ আনলিমিটেড</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px">
+      <div style="font-size:40px;margin-bottom:10px">🏆</div>
+      <h3 style="margin-bottom:10px">VIP প্রোগ্রাম</h3>
+      <p style="color:var(--muted);margin-bottom:14px;font-size:14px">VIP সদস্যরা পান এক্সক্লুসিভ বোনাস ও বিশেষ সুবিধা!</p>
+      <div style="color:var(--gold);font-weight:700">✅ উচ্চ রোলারদের জন্য</div>
+    </div>
+  </div>
+</div>
+
+<!-- VIP PAGE -->
+<div id="vipPage" class="container hidden">
+  <h2 class="section-title">👑 VIP প্রোগ্রাম</h2>
+  <p class="section-sub">আপনার খেলার স্তর অনুযায়ী বিশেষ সুবিধা পান</p>
+  <div class="vip-strip">
+    <div class="vip-level"><div class="vip-icon">🥉</div><div class="vip-name">Bronze</div><div class="vip-bonus">৫% ক্যাশব্যাক</div></div>
+    <div class="vip-level"><div class="vip-icon">🥈</div><div class="vip-name">Silver</div><div class="vip-bonus">৮% ক্যাশব্যাক</div></div>
+    <div class="vip-level"><div class="vip-icon">🥇</div><div class="vip-name">Gold</div><div class="vip-bonus">১২% ক্যাশব্যাক</div></div>
+    <div class="vip-level"><div class="vip-icon">💎</div><div class="vip-name">Platinum</div><div class="vip-bonus">১৫% ক্যাশব্যাক</div></div>
+    <div class="vip-level"><div class="vip-icon">👑</div><div class="vip-name">Diamond</div><div class="vip-bonus">২০% ক্যাশব্যাক</div></div>
+  </div>
+</div>
+
+<!-- ADMIN PAGE -->
+<div id="adminPage" class="container hidden">
+  <h2 class="section-title">⚙️ অ্যাডমিন প্যানেল</h2>
+  <div class="admin-layout">
+    <div class="admin-sidebar">
+      <div class="admin-menu-item active" onclick="showAdminTab('dashboard', this)">📊 ড্যাশবোর্ড</div>
+      <div class="admin-menu-item" onclick="showAdminTab('users', this)">👥 ইউজার</div>
+      <div class="admin-menu-item" onclick="showAdminTab('bets', this)">🎲 বেট হিস্ট্রি</div>
+      <div class="admin-menu-item" onclick="showAdminTab('deposits', this)">💳 ডিপোজিট</div>
+      <div class="admin-menu-item" onclick="showAdminTab('withdrawals', this)">💸 উইথড্র</div>
+      <div class="admin-menu-item" onclick="showAdminTab('payments', this)">💰 পেমেন্ট নম্বর</div>
+      <div class="admin-menu-item" onclick="showAdminTab('games', this)">🎮 গেম কনফিগ</div>
+      <div class="admin-menu-item" onclick="showAdminTab('announcements', this)">📢 ঘোষণা</div>
+      <div class="admin-menu-item" onclick="showAdminTab('settings', this)">⚙️ সেটিংস</div>
+    </div>
+    <div class="admin-content" id="adminContent"></div>
+  </div>
+</div>
+
+<!-- Auth Modal -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="authTitle">লগইন</div>
+      <button class="modal-close" onclick="closeModal('authModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="loginForm">
+        <div class="form-group">
+          <label class="form-label">ইউজারনেম / ইমেইল</label>
+          <input type="text" class="form-input" id="loginUser" placeholder="username">
+        </div>
+        <div class="form-group">
+          <label class="form-label">পাসওয়ার্ড</label>
+          <input type="password" class="form-input" id="loginPass" placeholder="••••••">
+        </div>
+        <button class="btn btn-gold" style="width:100%" onclick="doLogin()">লগইন করুন</button>
+        <p style="text-align:center;margin-top:16px;color:var(--muted);font-size:14px">
+          একাউন্ট নেই? <a href="#" style="color:var(--gold)" onclick="openAuth('signup')">সাইন আপ করুন</a>
+        </p>
+        <div style="margin-top:16px;padding:14px;background:var(--card-solid);border-radius:10px;font-size:12px;color:var(--muted);border:1px solid var(--border)">
+          <strong style="color:var(--gold)">🔐 ডেমো অ্যাডমিন:</strong> admin / admin123
+        </div>
+      </div>
+      <div id="signupForm" class="hidden">
+        <div class="form-group">
+          <label class="form-label">পূর্ণ নাম</label>
+          <input type="text" class="form-input" id="signupName" placeholder="আপনার নাম">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">ইউজারনেম</label>
+            <input type="text" class="form-input" id="signupUser" placeholder="username">
+          </div>
+          <div class="form-group">
+            <label class="form-label">ফোন</label>
+            <input type="text" class="form-input" id="signupPhone" placeholder="01XXXXXXXXX">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">ইমেইল</label>
+          <input type="email" class="form-input" id="signupEmail" placeholder="email@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">পাসওয়ার্ড</label>
+          <input type="password" class="form-input" id="signupPass" placeholder="৬+ অক্ষর">
+        </div>
+        <div class="form-group">
+          <label class="form-label">রেফারেল কোড (ঐচ্ছিক)</label>
+          <input type="text" class="form-input" id="signupRef" placeholder="REF123">
+        </div>
+        <button class="btn btn-gold" style="width:100%" onclick="doSignup()">একাউন্ট তৈরি করুন</button>
+        <p style="text-align:center;margin-top:16px;color:var(--muted);font-size:14px">
+          ইতিমধ্যে একাউন্ট আছে? <a href="#" style="color:var(--gold)" onclick="openAuth('login')">লগইন করুন</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Wallet Modal -->
+<div class="modal-overlay" id="walletModal">
+  <div class="modal lg">
+    <div class="modal-header">
+      <div class="modal-title">💰 ওয়ালেট</div>
+      <button class="modal-close" onclick="closeModal('walletModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="background:linear-gradient(135deg,#1a1f3a,#2d1b4e);padding:26px;border-radius:16px;margin-bottom:22px;border:1px solid var(--gold);position:relative;overflow:hidden">
+        <div style="position:absolute;top:-20px;right:-20px;font-size:120px;opacity:0.1">💎</div>
+        <div style="color:var(--muted);font-size:13px;margin-bottom:8px;letter-spacing:1px">মোট ব্যালেন্স</div>
+        <div style="font-size:40px;font-weight:900;color:var(--gold);text-shadow:0 0 30px rgba(255,215,0,0.4)">৳<span id="walletBalance">0</span></div>
+        <div style="margin-top:12px;display:flex;gap:12px;font-size:12px;color:var(--muted)">
+          <span>💰 বোনাস: ৳<span id="bonusBalance">0</span></span>
+          <span>🎁 VIP: <span id="vipLevel">Bronze</span></span>
+        </div>
+      </div>
+      <div class="tabs">
+        <button class="tab active" onclick="switchWalletTab('deposit', this)">💳 ডিপোজিট</button>
+        <button class="tab" onclick="switchWalletTab('withdraw', this)">💸 উইথড্র</button>
+        <button class="tab" onclick="switchWalletTab('history', this)">📜 লেনদেন</button>
+      </div>
+      <div id="walletDeposit">
+        <div class="form-group">
+          <label class="form-label">পরিমাণ (৳)</label>
+          <input type="number" class="form-input" id="depositAmount" placeholder="১০০" min="100">
+          <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+            <button class="btn btn-outline" style="padding:6px 12px;font-size:12px" onclick="document.getElementById('depositAmount').value=100">৳১০০</button>
+            <button class="btn btn-outline" style="padding:6px 12px;font-size:12px" onclick="document.getElementById('depositAmount').value=500">৳৫০০</button>
+            <button class="btn btn-outline" style="padding:6px 12px;font-size:12px" onclick="document.getElementById('depositAmount').value=1000">৳১০০০</button>
+            <button class="btn btn-outline" style="padding:6px 12px;font-size:12px" onclick="document.getElementById('depositAmount').value=5000">৳৫০০০</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">পেমেন্ট মেথড বেছে নিন</label>
+          <div class="payment-methods" id="paymentMethods"></div>
+        </div>
+        <div id="paymentDetails"></div>
+        <div class="form-group">
+          <label class="form-label">ট্রানজেকশন ID (TrxID)</label>
+          <input type="text" class="form-input" id="depositTxId" placeholder="TrxID লিখুন">
+        </div>
+        <div class="form-group">
+          <label class="form-label">পেমেন্ট স্লিপ (ঐচ্ছিক)</label>
+          <input type="file" class="form-input" id="depositSlip" accept="image/*">
+        </div>
+        <button class="btn btn-gold" style="width:100%" onclick="submitDeposit()">✅ ডিপোজিট সাবমিট করুন</button>
+      </div>
+      <div id="walletWithdraw" class="hidden">
+        <div class="form-group">
+          <label class="form-label">উইথড্র পরিমাণ (৳)</label>
+          <input type="number" class="form-input" id="withdrawAmount" placeholder="৫০০" min="500">
+        </div>
+        <div class="form-group">
+          <label class="form-label">পেমেন্ট মেথড</label>
+          <select class="form-select" id="withdrawMethod">
+            <option value="bkash">বিকাশ</option>
+            <option value="nagad">নগদ</option>
+            <option value="rocket">রকেট</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">অ্যাকাউন্ট নম্বর (Personal)</label>
+          <input type="text" class="form-input" id="withdrawAccount" placeholder="01XXXXXXXXX">
+        </div>
+        <button class="btn btn-gold" style="width:100%" onclick="submitWithdraw()">💸 উইথড্র রিকোয়েস্ট</button>
+        <div style="margin-top:14px;padding:14px;background:var(--card-solid);border-radius:10px;font-size:12px;color:var(--muted);border:1px solid var(--border)">
+          ⚠️ উইথড্র প্রসেস হতে ১-২৪ ঘণ্টা সময় লাগতে পারে
+        </div>
+      </div>
+      <div id="walletHistory" class="hidden">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>ধরন</th><th>পরিমাণ</th><th>মেথড</th><th>স্ট্যাটাস</th><th>সময়</th></tr></thead>
+            <tbody id="transactionHistory"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Profile Modal -->
+<div class="modal-overlay" id="profileModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">👤 প্রোফাইল</div>
+      <button class="modal-close" onclick="closeModal('profileModal')">✕</button>
+    </div>
+    <div class="modal-body" id="profileContent"></div>
+  </div>
+</div>
+
+<!-- Game Modal -->
+<div class="modal-overlay" id="gameModal">
+  <div class="modal xl">
+    <div class="modal-header">
+      <div class="modal-title" id="gameTitle">গেম</div>
+      <button class="modal-close" onclick="closeGame()">✕</button>
+    </div>
+    <div class="modal-body" id="gameContent"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="logo"><div class="logo-icon">B0</div><div><div class="logo-text">BABU 00</div><div class="logo-sub">PREMIUM GAMING</div></div></div>
+  <div class="footer-links">
+    <a href="#" onclick="showPage('promo')">প্রমোশন</a>
+    <a href="#" onclick="showPage('vip')">VIP</a>
+    <a href="#">সাপোর্ট</a>
+    <a href="#">শর্তাবলী</a>
+    <a href="#">গোপনীয়তা</a>
+    <a href="#">দায়িত্বশীল গেমিং</a>
+  </div>
+  <p style="margin-top:16px">© 2026 Babu 00. সর্বস্বত্ব সংরক্ষিত। ১৮+ শুধুমাত্র। দায়িত্বশীলভাবে খেলুন।</p>
+</footer>
+
+<script>
+/* ============ DATA LAYER ============ */
+const DB = {
+  get(k, d) { try { return JSON.parse(localStorage.getItem('babu00_'+k)) ?? d; } catch { return d; } },
+  set(k, v) { localStorage.setItem('babu00_'+k, JSON.stringify(v)); }
+};
+
+function initDB() {
+  if (!DB.get('users')) {
+    DB.set('users', [{
+      id: 'admin', username: 'admin', password: 'admin123', name: 'Administrator',
+      email: 'admin@babu00.com', phone: '01700000000', balance: 1000000, bonusBalance: 0,
+      role: 'admin', createdAt: Date.now(), status: 'active', vip: 'Diamond', referral: 'ADMIN001'
+    }]);
+  }
+  if (!DB.get('bets')) DB.set('bets', []);
+  if (!DB.get('deposits')) DB.set('deposits', []);
+  if (!DB.get('withdrawals')) DB.set('withdrawals', []);
+  if (!DB.get('transactions')) DB.set('transactions', []);
+  if (!DB.get('announcements')) DB.set('announcements', []);
+  // Payment numbers - admin can change
+  if (!DB.get('paymentNumbers')) {
+    DB.set('paymentNumbers', {
+      bkash: { number: '01712-345678', type: 'Personal', name: 'Babu 00 Payment', active: true },
+      nagad: { number: '01812-345678', type: 'Personal', name: 'Babu 00 Nagad', active: true },
+      rocket: { number: '01912-345678', type: 'Personal', name: 'Babu 00 Rocket', active: true },
+      bank: { number: 'AC: 1234567890 | Rut: ******', type: 'Bank', name: 'DBBL', active: false }
+    });
+  }
+  if (!DB.get('config')) {
+    DB.set('config', {
+      siteName: 'Babu 00', minDeposit: 100, minWithdraw: 500,
+      colorGameEnabled: true, diceEnabled: true, minesEnabled: true,
+      crashEnabled: true, wheelEnabled: true, andarBaharEnabled: true,
+      dragonTigerEnabled: true, horseRacingEnabled: true,
+      houseEdge: 5, maintenanceMode: false, welcomeBonus: 100,
+      depositBonus: 100, maxDepositBonus: 10000,
+      jackpot: 1250000
+    });
+  }
+  if (!DB.get('winners')) {
+    const names = ['Rahim***', 'Karim***', 'Jamal***', 'Sakib***', 'Rafiq***', 'Nadia***', 'Tania***', 'Arif***', 'Sohag***', 'Mehedi***', 'Rasel***', 'Shanto***', 'Fahim***', 'Tanvir***', 'Jubayer***'];
+    const games = ['Color', 'Dice', 'Mines', 'Crash', 'Wheel', 'Andar Bahar', 'Dragon Tiger', 'Horse Racing'];
+    const winners = [];
+    for (let i = 0; i < 20; i++) {
+      winners.push({
+        name: names[i%names.length], game: games[i%games.length],
+        amount: Math.floor(Math.random()*10000+500),
+        multiplier: (Math.random()*9+1.5).toFixed(2),
+        time: Date.now() - Math.random()*3600000
+      });
+    }
+    DB.set('winners', winners);
+  }
+}
+initDB();
+
+let currentUser = DB.get('currentUser', null);
+let currentGame = null;
+let gameInterval = null;
+let selectedPaymentMethod = 'bkash';
+
+/* ============ UTILS ============ */
+function toast(msg, type='info') {
+  const c = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+  t.innerHTML = `<span style="font-size:22px">${icons[type]}</span><span style="flex:1">${msg}</span>`;
+  c.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(40px)'; setTimeout(() => t.remove(), 300); }, 3500);
+}
+function fmt(n) { return Number(n).toLocaleString('en-IN'); }
+function timeAgo(ts) {
+  const s = Math.floor((Date.now()-ts)/1000);
+  if (s<60) return s+' সেকেন্ড আগে';
+  if (s<3600) return Math.floor(s/60)+' মিনিট আগে';
+  if (s<86400) return Math.floor(s/3600)+' ঘণ্টা আগে';
+  return Math.floor(s/86400)+' দিন আগে';
+}
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+
+/* ============ PARTICLES ============ */
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+for (let i = 0; i < 60; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2 + 0.5,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    color: Math.random() > 0.5 ? 'rgba(255,215,0,' : 'rgba(139,92,246,'
+  });
+}
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = p.color + (0.3 + Math.sin(Date.now()/1000 + p.x) * 0.2) + ')';
+    ctx.fill();
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+/* ============ TICKER ============ */
+function renderTicker() {
+  const winners = DB.get('winners', []);
+  const items = winners.slice(0, 15).map(w => 
+    `<span class="ticker-item">🎉 <strong>${w.name}</strong> জিতেছেন <span class="win">৳${fmt(w.amount)}</span> ${w.game} গেম!</span>`
+  ).join('');
+  document.getElementById('tickerTrack').innerHTML = items + items;
+}
+renderTicker();
+
+/* ============ JACKPOT ============ */
+function updateJackpot() {
+  const cfg = DB.get('config');
+  cfg.jackpot += Math.random() * 50 + 10;
+  DB.set('config', cfg);
+  document.getElementById('jackpotAmount').textContent = '৳' + fmt(Math.floor(cfg.jackpot));
+}
+updateJackpot();
+setInterval(updateJackpot, 2000);
+
+/* ============ AUTH ============ */
+function openAuth(type) {
+  document.getElementById('authModal').classList.add('active');
+  if (type === 'login') {
+    document.getElementById('loginForm').classList.remove('hidden');
+    document.getElementById('signupForm').classList.add('hidden');
+    document.getElementById('authTitle').textContent = '🔐 লগইন';
+  } else {
+    document.getElementById('loginForm').classList.add('hidden');
+    document.getElementById('signupForm').classList.remove('hidden');
+    document.getElementById('authTitle').textContent = '✨ সাইন আপ';
+  }
+}
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+function doLogin() {
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value;
+  if (!u || !p) return toast('সব ফিল্ড পূরণ করুন', 'error');
+  const users = DB.get('users', []);
+  const user = users.find(x => (x.username===u || x.email===u) && x.password===p);
+  if (!user) return toast('ভুল ইউজারনেম বা পাসওয়ার্ড', 'error');
+  if (user.status === 'banned') return toast('আপনার একাউন্ট ব্যান করা হয়েছে', 'error');
+  currentUser = user;
+  DB.set('currentUser', user);
+  closeModal('authModal');
+  toast('স্বাগতম, ' + user.name + '!', 'success');
+  updateUI();
+}
+
+function doSignup() {
+  const name = document.getElementById('signupName').value.trim();
+  const user = document.getElementById('signupUser').value.trim();
+  const phone = document.getElementById('signupPhone').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const pass = document.getElementById('signupPass').value;
+  const ref = document.getElementById('signupRef').value.trim();
+  if (!name||!user||!phone||!email||!pass) return toast('সব ফিল্ড পূরণ করুন', 'error');
+  if (pass.length < 6) return toast('পাসওয়ার্ড ৬+ অক্ষর হতে হবে', 'error');
+  const users = DB.get('users', []);
+  if (users.find(x => x.username === user)) return toast('ইউজারনেম ইতিমধ্যে ব্যবহৃত', 'error');
+  const cfg = DB.get('config');
+  const newUser = {
+    id: uid(), username: user, password: pass, name, email, phone,
+    balance: cfg.welcomeBonus, bonusBalance: 0, role: 'user',
+    createdAt: Date.now(), status: 'active', vip: 'Bronze',
+    referral: 'REF' + Date.now().toString().slice(-6), referredBy: ref || null
+  };
+  users.push(newUser);
+  DB.set('users', users);
+  if (cfg.welcomeBonus > 0) {
+    const txs = DB.get('transactions', []);
+    txs.push({ id: uid(), userId: newUser.id, type: 'bonus', amount: cfg.welcomeBonus, status: 'completed', time: Date.now(), note: 'স্বাগতম বোনাস' });
+    DB.set('transactions', txs);
+  }
+  currentUser = newUser;
+  DB.set('currentUser', newUser);
+  closeModal('authModal');
+  toast(`🎉 স্বাগতম! ৳${cfg.welcomeBonus} বোনাস যোগ হয়েছে`, 'success');
+  updateUI();
+}
+
+function logout() {
+  currentUser = null;
+  DB.set('currentUser', null);
+  toast('লগআউট সফল', 'success');
+  updateUI();
+  showPage('home');
+}
+
+function updateUI() {
+  const logged = !!currentUser;
+  document.getElementById('loginBtn').classList.toggle('hidden', logged);
+  document.getElementById('signupBtn').classList.toggle('hidden', logged);
+  document.getElementById('profileBtn').classList.toggle('hidden', !logged);
+  document.getElementById('logoutBtn').classList.toggle('hidden', !logged);
+  document.getElementById('walletBtn').classList.toggle('hidden', !logged);
+  document.getElementById('walletBtn').style.display = logged ? '' : 'none';
+  document.getElementById('adminBtn').classList.toggle('hidden', !(logged && currentUser.role === 'admin'));
+  document.getElementById('balanceBadge').classList.toggle('hidden', !logged);
+  if (logged) {
+    document.getElementById('balanceDisplay').textContent = '৳' + fmt(currentUser.balance);
+  }
+}
+
+function refreshUser() {
+  if (!currentUser) return;
+  const users = DB.get('users', []);
+  const u = users.find(x => x.id === currentUser.id);
+  if (u) { currentUser = u; DB.set('currentUser', u); updateUI(); }
+}
+
+/* ============ PAGES ============ */
+function showPage(p) {
+  ['homePage','gamesPage','adminPage','promoPage','vipPage'].forEach(id => document.getElementById(id).classList.add('hidden'));
+  if (p === 'home') { document.getElementById('homePage').classList.remove('hidden'); renderHome(); }
+  else if (p === 'games') { document.getElementById('gamesPage').classList.remove('hidden'); renderGames(); }
+  else if (p === 'promo') { document.getElementById('promoPage').classList.remove('hidden'); }
+  else if (p === 'vip') { document.getElementById('vipPage').classList.remove('hidden'); }
+  else if (p === 'admin') {
+    if (!currentUser || currentUser.role !== 'admin') return toast('অ্যাক্সেস denied', 'error');
+    document.getElementById('adminPage').classList.remove('hidden');
+    showAdminTab('dashboard');
+  }
+  window.scrollTo(0,0);
+}
+
+/* ============ GAMES DATA ============ */
+const GAMES = [
+  { id: 'color', name: 'কালার প্রেডিকশন', desc: 'Red/Green/Violet - সঠিক রং বেছে নিন এবং ৯ গুণ জিতুন', icon: '🎨', color: 'linear-gradient(135deg,#ef4444,#10b981)', tag: 'HOT', live: true },
+  { id: 'dice', name: 'ডাইস রোল', desc: '১-৬ এর মধ্যে সংখ্যা অনুমান করুন, ৫ গুণক পান', icon: '🎲', color: 'linear-gradient(135deg,#f59e0b,#ef4444)', tag: 'POPULAR', live: false },
+  { id: 'mines', name: 'মাইনস', desc: 'বোমা এড়িয়ে হীরা সংগ্রহ করুন, যত বেশি তত বেশি গুণক', icon: '💎', color: 'linear-gradient(135deg,#3b82f6,#8b5cf6)', tag: 'NEW', live: false },
+  { id: 'crash', name: 'ক্র্যাশ', desc: 'রকেট উড়ার আগে ক্যাশ আউট করুন, ১০০x পর্যন্ত', icon: '🚀', color: 'linear-gradient(135deg,#10b981,#3b82f6)', tag: 'LIVE', live: true },
+  { id: 'wheel', name: 'লাকি হুইল', desc: 'চাকা ঘুরান এবং ১০x পর্যন্ত জিতুন', icon: '🎡', color: 'linear-gradient(135deg,#8b5cf6,#ec4899)', tag: 'JACKPOT', live: false },
+  { id: 'andarBahar', name: 'আন্দর বাহার', desc: 'ভারতীয় ক্লাসিক কার্ড গেম, ২ গুণক', icon: '🃏', color: 'linear-gradient(135deg,#dc2626,#991b1b)', tag: 'LIVE', live: true },
+  { id: 'dragonTiger', name: 'ড্রাগন টাইগার', desc: 'ড্রাগন না টাইগার - কে জিতবে?', icon: '🐉', color: 'linear-gradient(135deg,#f59e0b,#dc2626)', tag: 'POPULAR', live: true },
+  { id: 'horseRacing', name: 'হর্স রেসিং', desc: 'ঘোড়া দৌড় - আপনার ঘোড়া বেছে নিন', icon: '🏇', color: 'linear-gradient(135deg,#059669,#10b981)', tag: 'NEW', live: true }
+];
+
+function renderGameCard(g) {
+  const players = Math.floor(Math.random()*500+50);
+  return `<div class="game-card" onclick="openGame('${g.id}')">
+    ${g.live ? '<div class="game-live">LIVE</div>' : ''}
+    <div class="game-tag">${g.tag}</div>
+    <div class="game-thumb" style="background:${g.color}">${g.icon}</div>
+    <div class="game-info">
+      <div class="game-name">${g.name}</div>
+      <div class="game-desc">${g.desc}</div>
+      <div class="game-meta">
+        <div class="game-players">👥 ${players} খেলছে</div>
+        <div class="game-play-btn">খেলে ›</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderHome() {
+  document.getElementById('homeGamesGrid').innerHTML = GAMES.slice(0,4).map(renderGameCard).join('');
+  const users = DB.get('users', []);
+  const bets = DB.get('bets', []);
+  document.getElementById('statUsers').textContent = fmt(users.length);
+  document.getElementById('statBets').textContent = fmt(bets.length);
+  document.getElementById('statOnline').textContent = fmt(Math.floor(Math.random()*5000+5000));
+  const todayPrize = bets.filter(b => Date.now()-b.time < 86400000).reduce((s,b) => s + (b.win||0), 0);
+  document.getElementById('statPrize').textContent = '৳' + fmt(todayPrize);
+  const winners = DB.get('winners', []);
+  document.getElementById('recentWinners').innerHTML = winners.slice(0,10).map(w => `
+    <tr><td>${w.name}</td><td>${w.game}</td><td style="color:var(--gold);font-weight:700">৳${fmt(w.amount)}</td><td><span class="badge badge-green">${w.multiplier}x</span></td><td>${timeAgo(w.time)}</td></tr>
+  `).join('');
+}
+
+function renderGames() {
+  document.getElementById('allGamesGrid').innerHTML = GAMES.map(renderGameCard).join('');
+}
+
+/* ============ WALLET ============ */
+function openWallet() {
+  if (!currentUser) return openAuth('login');
+  document.getElementById('walletModal').classList.add('active');
+  document.getElementById('walletBalance').textContent = fmt(currentUser.balance);
+  document.getElementById('bonusBalance').textContent = fmt(currentUser.bonusBalance || 0);
+  document.getElementById('vipLevel').textContent = currentUser.vip || 'Bronze';
+  switchWalletTab('deposit');
+}
+function switchWalletTab(tab, el) {
+  if (el) { el.parentElement.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); el.classList.add('active'); }
+  document.getElementById('walletDeposit').classList.toggle('hidden', tab !== 'deposit');
+  document.getElementById('walletWithdraw').classList.toggle('hidden', tab !== 'withdraw');
+  document.getElementById('walletHistory').classList.toggle('hidden', tab !== 'history');
+  if (tab === 'deposit') renderPaymentMethods();
+  if (tab === 'history') renderTransactions();
+}
+
+function renderPaymentMethods() {
+  const methods = [
+    { id: 'bkash', name: 'বিকাশ', icon: '💗' },
+    { id: 'nagad', name: 'নগদ', icon: '💚' },
+    { id: 'rocket', name: 'রকেট', icon: '🚀' }
+  ];
+  document.getElementById('paymentMethods').innerHTML = methods.map(m => `
+    <div class="payment-method ${selectedPaymentMethod === m.id ? 'active' : ''}" onclick="selectPayment('${m.id}')">
+      <div class="pm-icon">${m.icon}</div>
+      <div class="pm-name">${m.name}</div>
+    </div>
+  `).join('');
+  renderPaymentDetails();
+}
+function selectPayment(id) {
+  selectedPaymentMethod = id;
+  renderPaymentMethods();
+}
+function renderPaymentDetails() {
+  const payments = DB.get('paymentNumbers');
+  const p = payments[selectedPaymentMethod];
+  if (!p || !p.active) {
+    document.getElementById('paymentDetails').innerHTML = '<div style="color:var(--red);padding:14px">এই মুহূর্তে এই মেথড উপলব্ধ নয়</div>';
+    return;
+  }
+  const icons = { bkash: '💗', nagad: '💚', rocket: '🚀' };
+  const names = { bkash: 'বিকাশ', nagad: 'নগদ', rocket: 'রকেট' };
+  document.getElementById('paymentDetails').innerHTML = `
+    <div class="deposit-info">
+      <div class="deposit-info-title">${icons[selectedPaymentMethod]} ${names[selectedPaymentMethod]} নম্বর</div>
+      <div class="deposit-number">
+        <span id="paymentNum">${p.number}</span>
+        <button class="copy-btn" onclick="copyPaymentNumber()">📋 কপি</button>
+      </div>
+      <div style="font-size:13px;color:var(--muted);margin-top:8px">
+        📌 ধরন: <strong style="color:var(--text)">${p.type}</strong><br>
+        📝 নাম: <strong style="color:var(--text)">${p.name}</strong><br>
+        ⚠️ Send Money করুন, Cash Out নয়
+      </div>
+    </div>
+  `;
+}
+function copyPaymentNumber() {
+  const payments = DB.get('paymentNumbers');
+  const p = payments[selectedPaymentMethod];
+  navigator.clipboard.writeText(p.number.replace(/-/g, '')).then(() => {
+    toast('নম্বর কপি হয়েছে!', 'success');
+  });
+}
+
+function submitDeposit() {
+  const amt = parseFloat(document.getElementById('depositAmount').value);
+  const method = selectedPaymentMethod;
+  const txId = document.getElementById('depositTxId').value.trim();
+  const payments = DB.get('paymentNumbers');
+  if (!payments[method] || !payments[method].active) return toast('এই মেথড বন্ধ আছে', 'error');
+  if (!amt || amt < 100) return toast('সর্বনিম্ন ৳১০০', 'error');
+  if (!txId) return toast('TrxID দিন', 'error');
+  const deps = DB.get('deposits', []);
+  deps.push({
+    id: uid(), userId: currentUser.id, username: currentUser.username,
+    amount: amt, method, txId, status: 'pending', time: Date.now(),
+    paymentNumber: payments[method].number
+  });
+  DB.set('deposits', deps);
+  const txs = DB.get('transactions', []);
+  txs.push({ id: uid(), userId: currentUser.id, type: 'deposit', amount: amt, method, status: 'pending', time: Date.now() });
+  DB.set('transactions', txs);
+  toast('✅ ডিপোজিট সাবমিট হয়েছে। অ্যাডমিন অনুমোদনের পর ব্যালেন্স যোগ হবে', 'success');
+  document.getElementById('depositAmount').value = '';
+  document.getElementById('depositTxId').value = '';
+}
+function submitWithdraw() {
+  const amt = parseFloat(document.getElementById('withdrawAmount').value);
+  const method = document.getElementById('withdrawMethod').value;
+  const acc = document.getElementById('withdrawAccount').value.trim();
+  if (!amt || amt < 500) return toast('সর্বনিম্ন ৳৫০০', 'error');
+  if (amt > currentUser.balance) return toast('অপর্যাপ্ত ব্যালেন্স', 'error');
+  if (!acc || acc.length < 11) return toast('সঠিক অ্যাকাউন্ট নম্বর দিন', 'error');
+  const users = DB.get('users', []);
+  const u = users.find(x => x.id === currentUser.id);
+  u.balance -= amt;
+  DB.set('users', users);
+  currentUser = u; DB.set('currentUser', u);
+  const wds = DB.get('withdrawals', []);
+  wds.push({ id: uid(), userId: currentUser.id, username: currentUser.username, amount: amt, method, account: acc, status: 'pending', time: Date.now() });
+  DB.set('withdrawals', wds);
+  const txs = DB.get('transactions', []);
+  txs.push({ id: uid(), userId: currentUser.id, type: 'withdraw', amount: amt, method, status: 'pending', time: Date.now() });
+  DB.set('transactions', txs);
+  toast('✅ উইথড্র রিকোয়েস্ট সাবমিট হয়েছে', 'success');
+  document.getElementById('walletBalance').textContent = fmt(currentUser.balance);
+  document.getElementById('balanceDisplay').textContent = '৳' + fmt(currentUser.balance);
+}
+function renderTransactions() {
+  const txs = DB.get('transactions', []).filter(t => t.userId === currentUser.id).sort((a,b) => b.time - a.time);
+  if (!txs.length) { document.getElementById('transactionHistory').innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted)">কোন লেনদেন নেই</td></tr>'; return; }
+  document.getElementById('transactionHistory').innerHTML = txs.map(t => {
+    const typeMap = { deposit:'💳 ডিপোজিট', withdraw:'💸 উইথড্র', bonus:'🎁 বোনাস', win:'🏆 জয়', bet:'🎲 বেট' };
+    const statusMap = { pending:'<span class="badge badge-gold">পেন্ডিং</span>', completed:'<span class="badge badge-green">সম্পন্ন</span>', rejected:'<span class="badge badge-red">বাতিল</span>' };
+    const sign = ['deposit','bonus','win'].includes(t.type) ? '+' : '-';
+    const color = sign === '+' ? 'var(--green)' : 'var(--red)';
+    return `<tr><td>${typeMap[t.type]||t.type}</td><td style="color:${color};font-weight:700">${sign}৳${fmt(t.amount)}</td><td>${t.method||'-'}</td><td>${statusMap[t.status]||'-'}</td><td>${timeAgo(t.time)}</td></tr>`;
+  }).join('');
+}
+
+/* ============ PROFILE ============ */
+function openProfile() {
+  if (!currentUser) return;
+  const bets = DB.get('bets', []).filter(b => b.userId === currentUser.id);
+  const totalBet = bets.reduce((s,b) => s + b.amount, 0);
+  const totalWin = bets.reduce((s,b) => s + (b.win||0), 0);
+  document.getElementById('profileContent').innerHTML = `
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:40px;color:#000;font-weight:900;box-shadow:0 0 30px rgba(255,215,0,0.4)">${currentUser.name[0].toUpperCase()}</div>
+      <h3 style="font-size:22px">${currentUser.name}</h3>
+      <p style="color:var(--muted);font-size:14px">@${currentUser.username}</p>
+      <span class="badge badge-gold" style="margin-top:8px">👑 ${currentUser.vip || 'Bronze'}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+      <div style="background:var(--card-solid);padding:16px;border-radius:12px;border:1px solid var(--border)"><div style="color:var(--muted);font-size:12px">ব্যালেন্স</div><div style="font-size:22px;font-weight:800;color:var(--gold)">৳${fmt(currentUser.balance)}</div></div>
+      <div style="background:var(--card-solid);padding:16px;border-radius:12px;border:1px solid var(--border)"><div style="color:var(--muted);font-size:12px">মোট বেট</div><div style="font-size:22px;font-weight:800">${bets.length}</div></div>
+      <div style="background:var(--card-solid);padding:16px;border-radius:12px;border:1px solid var(--border)"><div style="color:var(--muted);font-size:12px">মোট বাজি</div><div style="font-size:22px;font-weight:800">৳${fmt(totalBet)}</div></div>
+      <div style="background:var(--card-solid);padding:16px;border-radius:12px;border:1px solid var(--border)"><div style="color:var(--muted);font-size:12px">মোট জয়</div><div style="font-size:22px;font-weight:800;color:var(--green)">৳${fmt(totalWin)}</div></div>
+    </div>
+    <div style="background:var(--card-solid);padding:18px;border-radius:12px;font-size:14px;border:1px solid var(--border)">
+      <div style="margin-bottom:10px"><strong>📧 ইমেইল:</strong> ${currentUser.email}</div>
+      <div style="margin-bottom:10px"><strong>📱 ফোন:</strong> ${currentUser.phone}</div>
+      <div style="margin-bottom:10px"><strong>📅 যোগদান:</strong> ${new Date(currentUser.createdAt).toLocaleDateString('bn-BD')}</div>
+      <div><strong>🎁 রেফারেল কোড:</strong> <span style="color:var(--gold);font-weight:700">${currentUser.referral}</span></div>
+    </div>
+  `;
+  document.getElementById('profileModal').classList.add('active');
+}
+
+/* ============ GAMES ============ */
+function openGame(id) {
+  if (!currentUser) return openAuth('login');
+  const cfg = DB.get('config');
+  if (!cfg[id+'Enabled']) return toast('এই গেম বন্ধ আছে', 'error');
+  currentGame = id;
+  const g = GAMES.find(x => x.id === id);
+  document.getElementById('gameTitle').textContent = g.icon + ' ' + g.name;
+  document.getElementById('gameModal').classList.add('active');
+  if (id === 'color') initColorGame();
+  else if (id === 'dice') initDiceGame();
+  else if (id === 'mines') initMinesGame();
+  else if (id === 'crash') initCrashGame();
+  else if (id === 'wheel') initWheelGame();
+  else if (id === 'andarBahar') initAndarBahar();
+  else if (id === 'dragonTiger') initDragonTiger();
+  else if (id === 'horseRacing') initHorseRacing();
+}
+function closeGame() {
+  if (gameInterval) { clearInterval(gameInterval); gameInterval = null; }
+  document.getElementById('gameModal').classList.remove('active');
+  currentGame = null;
+}
+
+function placeBet(amount, callback) {
+  if (amount > currentUser.balance) return toast('অপর্যাপ্ত ব্যালেন্স', 'error');
+  if (amount < 10) return toast('সর্বনিম্ন বেট ৳১০', 'error');
+  const users = DB.get('users', []);
+  const u = users.find(x => x.id === currentUser.id);
+  u.balance -= amount;
+  DB.set('users', users);
+  currentUser = u; DB.set('currentUser', u);
+  updateUI();
+  return true;
+}
+function recordWin(amount) {
+  const users = DB.get('users', []);
+  const u = users.find(x => x.id === currentUser.id);
+  u.balance += amount;
+  DB.set('users', users);
+  currentUser = u; DB.set('currentUser', u);
+  updateUI();
+}
+function saveBet(game, amount, multiplier, win) {
+  const bets = DB.get('bets', []);
+  bets.push({ id: uid(), userId: currentUser.id, username: currentUser.username, game, amount, multiplier, win, time: Date.now() });
+  DB.set('bets', bets);
+  const txs = DB.get('transactions', []);
+  if (win > 0) txs.push({ id: uid(), userId: currentUser.id, type: 'win', amount: win, status: 'completed', time: Date.now(), note: game + ' win' });
+  DB.set('transactions', txs);
+  if (win > amount) {
+    const winners = DB.get('winners', []);
+    const name = currentUser.name.slice(0,5) + '***';
+    winners.unshift({ name, game, amount: win, multiplier: multiplier.toFixed(2), time: Date.now() });
+    DB.set('winners', winners.slice(0, 50));
+    renderTicker();
+  }
+}
+
+/* --- COLOR PREDICTION --- */
+let colorState = { period: 1, timer: 30, history: [], locked: false };
+function initColorGame() {
+  colorState = { period: Math.floor(Date.now()/30000), timer: 30 - (Math.floor(Date.now()/1000)%30), history: DB.get('colorHistory', []), locked: false };
+  renderColorGame();
+  if (gameInterval) clearInterval(gameInterval);
+  gameInterval = setInterval(() => {
+    colorState.timer--;
+    if (colorState.timer <= 5) colorState.locked = true;
+    if (colorState.timer <= 0) {
+      resolveColor();
+      colorState.period++;
+      colorState.timer = 30;
+      colorState.locked = false;
+    }
+    renderColorGame();
+  }, 1000);
+}
+function renderColorGame() {
+  const pendingBets = DB.get('colorPending', []).filter(b => b.period === colorState.period && b.userId === currentUser.id);
+  document.getElementById('gameContent').innerHTML = `
+    <div class="color-game">
+      <div class="period-id">পিরিয়ড: ${colorState.period}</div>
+      <div class="timer-display">${String(colorState.timer).padStart(2,'0')}</div>
+      ${colorState.locked ? '<div style="color:var(--red);margin-bottom:10px;font-weight:700">🔒 বেটিং বন্ধ</div>' : '<div style="color:var(--muted);font-size:13px;margin-bottom:10px">রং বা সংখ্যা বেছে নিন</div>'}
+      <div class="color-buttons">
+        <button class="color-btn green" onclick="placeColorBet('green', 2)" ${colorState.locked?'disabled':''}>🟢 Green x2</button>
+        <button class="color-btn violet" onclick="placeColorBet('violet', 4.5)" ${colorState.locked?'disabled':''}>🟣 Violet x4.5</button>
+        <button class="color-btn red" onclick="placeColorBet('red', 2)" ${colorState.locked?'disabled':''}>🔴 Red x2</button>
+      </div>
+      <div style="margin:20px 0;font-weight:700">সংখ্যা বেছে নিন (x9 গুণক)</div>
+      <div class="number-grid">
+        ${[0,1,2,3,4,5,6,7,8,9].map(n => `<button class="num-btn" onclick="placeColorBet(${n}, 9)" ${colorState.locked?'disabled':''}>${n}</button>`).join('')}
+      </div>
+      <div style="margin-top:20px">
+        <div style="font-weight:700;margin-bottom:10px">আপনার বেট (এই রাউন্ড)</div>
+        ${pendingBets.length ? pendingBets.map(b => `<div style="display:flex;justify-content:space-between;padding:10px 14px;background:var(--card-solid);border-radius:10px;margin-bottom:6px;border:1px solid var(--border)"><span>${b.choice}</span><span style="color:var(--gold);font-weight:700">৳${fmt(b.amount)}</span></div>`).join('') : '<div style="color:var(--muted);text-align:center;padding:20px">কোন বেট নেই</div>'}
+      </div>
+      <div style="margin-top:20px">
+        <div style="font-weight:700;margin-bottom:10px">সাম্প্রতিক ফলাফল</div>
+        <div style="max-height:250px;overflow-y:auto">
+          ${colorState.history.slice(0,15).map(h => `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border)">
+            <span><span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:${h.color==='red'?'var(--red)':h.color==='green'?'var(--green)':'var(--violet)'};vertical-align:middle;margin-right:8px"></span>${h.number}</span>
+            <span style="color:var(--muted);font-size:12px">পিরিয়ড ${h.period}</span>
+          </div>`).join('') || '<div style="color:var(--muted);text-align:center;padding:20px">কোন ইতিহাস নেই</div>'}
+        </div>
+      </div>
+    </div>
+  `;
+}
+function placeColorBet(choice, multiplier) {
+  if (colorState.locked) return toast('বেটিং বন্ধ আছে', 'error');
+  const amt = parseFloat(prompt('বেট পরিমাণ (৳):', '100'));
+  if (!amt || amt < 10) return;
+  if (!placeBet(amt)) return;
+  const pending = DB.get('colorPending', []);
+  pending.push({ id: uid(), userId: currentUser.id, period: colorState.period, choice, amount: amt, multiplier, time: Date.now() });
+  DB.set('colorPending', pending);
+  toast(`৳${fmt(amt)} বেট placed on ${choice}`, 'success');
+  renderColorGame();
+}
+function resolveColor() {
+  const pending = DB.get('colorPending', []).filter(b => b.period === colorState.period);
+  const number = Math.floor(Math.random()*10);
+  const color = number === 0 ? 'violet' : (number === 5 ? 'violet' : (number % 2 === 0 ? 'red' : 'green'));
+  const history = DB.get('colorHistory', []);
+  history.unshift({ period: colorState.period, number, color, time: Date.now() });
+  DB.set('colorHistory', history.slice(0, 100));
+  colorState.history = history;
+  pending.forEach(b => {
+    let won = 0;
+    if (b.choice === color) won = b.amount * b.multiplier;
+    else if (b.choice === number) won = b.amount * b.multiplier;
+    if (won > 0) {
+      recordWin(won);
+      saveBet('Color', b.amount, b.multiplier, won);
+      toast(`🎉 জিতেছেন ৳${fmt(won)}!`, 'success');
+    } else {
+      saveBet('Color', b.amount, 0, 0);
+    }
+  });
+  DB.set('colorPending', DB.get('colorPending', []).filter(b => b.period !== colorState.period));
+}
+
+/* --- DICE --- */
+let diceState = { rolling: false, result: null, choice: null };
+function initDiceGame() {
+  diceState = { rolling: false, result: null, choice: null };
+  renderDice();
+}
+function renderDice() {
+  document.getElementById('gameContent').innerHTML = `
+    <div class="dice-container">
+      <h3 style="margin-bottom:10px">সংখ্যা অনুমান করুন (x5 গুণক)</h3>
+      <p style="color:var(--muted);margin-bottom:20px">১-৬ এর মধ্যে যেকোন একটি সংখ্যা বেছে নিন</p>
+      <div class="dice-display" id="diceDisplay">?</div>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:20px 0">
+        ${[1,2,3,4,5,6].map(n => `<button class="num-btn" onclick="selectDice(${n})" ${diceState.rolling?'disabled':''} style="${diceState.choice===n?'border-color:var(--gold);color:var(--gold)':''}">${n}</button>`).join('')}
+      </div>
+      <div style="margin:20px 0">
+        <label class="form-label">বেট পরিমাণ</label>
+        <input type="number" class="form-input" id="diceBet" value="100" min="10">
+      </div>
+      <button class="btn btn-gold" style="width:100%" onclick="rollDice()" ${(!diceState.choice||diceState.rolling)?'disabled':''}>🎲 রোল করুন</button>
+      ${diceState.result !== null ? `<div style="margin-top:20px;padding:18px;background:var(--card-solid);border-radius:12px;text-align:center;border:1px solid var(--border)"><div style="font-size:18px;margin-bottom:8px">ফলাফল: <strong style="font-size:28px;color:var(--gold)">${diceState.result}</strong></div><div style="color:${diceState.win?'var(--green)':'var(--red)'};font-weight:700;font-size:16px">${diceState.win?'🎉 জিতেছেন ৳'+fmt(diceState.winAmount):'😔 হেরে গেছেন'}</div></div>` : ''}
+    </div>
+  `;
+}
+function selectDice(n) { diceState.choice = n; renderDice(); }
+function rollDice() {
+  if (!diceState.choice) return toast('সংখ্যা বেছে নিন', 'error');
+  const amt = parseFloat(document.getElementById('diceBet').value);
+  if (!amt || amt < 10) return toast('সর্বনিম্ন ৳১০', 'error');
+  if (!placeBet(amt)) return;
+  diceState.rolling = true;
+  renderDice();
+  const disp = document.getElementById('diceDisplay');
+  disp.classList.add('rolling');
+  let count = 0;
+  const anim = setInterval(() => {
+    disp.textContent = Math.floor(Math.random()*6)+1;
+    count++;
+    if (count > 15) {
+      clearInterval(anim);
+      const result = Math.floor(Math.random()*6)+1;
+      disp.classList.remove('rolling');
+      disp.textContent = result;
+      diceState.result = result;
+      diceState.rolling = false;
+      if (result === diceState.choice) {
+        const winAmt = amt * 5;
+        recordWin(winAmt);
+        saveBet('Dice', amt, 5, winAmt);
+        diceState.win = true;
+        diceState.winAmount = winAmt;
+        toast(`🎉 জিতেছেন ৳${fmt(winAmt)}!`, 'success');
+      } else {
+        saveBet('Dice', amt, 0, 0);
+        diceState.win = false;
+      }
+      setTimeout(() => renderDice(), 500);
+    }
+  }, 80);
+}
+
+/* --- MINES --- */
+let minesState = { bet: 0, mines: 3, grid: [], revealed: [], gameOver: false, cashedOut: false, multiplier: 1 };
+function initMinesGame() {
+  minesState = { bet: 0, mines: 3, grid: [], revealed: [], gameOver: false, cashedOut: false, multiplier: 1 };
+  renderMines();
+}
+function renderMines() {
+  const setup = minesState.grid.length === 0;
+  document.getElementById('gameContent').innerHTML = `
+    <div style="text-align:center">
+      ${setup ? `
+        <h3>💎 মাইনস সেটআপ</h3>
+        <p style="color:var(--muted);margin:10px 0 20px">বোমা এড়িয়ে হীরা সংগ্রহ করুন</p>
+        <div style="margin:20px 0">
+          <label class="form-label">বেট পরিমাণ</label>
+          <input type="number" class="form-input" id="minesBet" value="100" min="10">
+        </div>
+        <div style="margin:20px 0">
+          <label class="form-label">মাইনস সংখ্যা (১-২৪)</label>
+          <input type="number" class="form-input" id="minesCount" value="3" min="1" max="24">
+        </div>
+        <button class="btn btn-gold" onclick="startMines()">🎮 গেম শুরু করুন</button>
+      ` : `
+        <div style="display:flex;justify-content:space-around;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+          <div style="background:var(--card-solid);padding:14px 20px;border-radius:12px;border:1px solid var(--border)"><div style="color:var(--muted);font-size:12px">বেট</div><div style="font-weight:700">৳${fmt(minesState.bet)}</div></div>
+          <div style="background:var(--card-solid);padding:14px 20px;border-radius:12px;border:1px solid var(--gold)"><div style="color:var(--muted);font-size:12px">গুণক</div><div style="font-weight:800;color:var(--gold);font-size:20px">${minesState.multiplier.toFixed(2)}x</div></div>
+          <div style="background:var(--card-solid);padding:14px 20px;border-radius:12px;border:1px solid var(--green)"><div style="color:var(--muted);font-size:12px">সম্ভাব্য জয়</div><div style="font-weight:700;color:var(--green)">৳${fmt(minesState.bet*minesState.multiplier)}</div></div>
+        </div>
+        <div class="mines-grid">
+          ${minesState.grid.map((cell, i) => {
+            const rev = minesState.revealed.includes(i);
+            let cls = 'mine-cell';
+            let content = '';
+            if (rev) {
+              cls += ' revealed ' + (cell === 'mine' ? 'mine' : 'safe');
+              content = cell === 'mine' ? '💣' : '💎';
+            }
+            return `<div class="${cls}" onclick="revealMine(${i})">${content}</div>`;
+          }).join('')}
+        </div>
+        ${!minesState.gameOver && !minesState.cashedOut ? `<button class="btn btn-green" style="margin-top:16px" onclick="cashoutMines()">💰 ক্যাশ আউট ৳${fmt(minesState.bet*minesState.multiplier)}</button>` : ''}
+        ${minesState.gameOver ? `<div style="margin-top:16px;color:var(--red);font-weight:700;font-size:18px">💥 বোমায় আঘাত! হেরে গেছেন</div>` : ''}
+        ${minesState.cashedOut ? `<div style="margin-top:16px;color:var(--green);font-weight:700;font-size:18px">🎉 জিতেছেন ৳${fmt(minesState.bet*minesState.multiplier)}</div>` : ''}
+        ${(minesState.gameOver || minesState.cashedOut) ? `<button class="btn btn-gold" style="margin-top:12px" onclick="initMinesGame()">🔄 নতুন গেম</button>` : ''}
+      `}
+    </div>
+  `;
+}
+function startMines() {
+  const bet = parseFloat(document.getElementById('minesBet').value);
+  const mines = parseInt(document.getElementById('minesCount').value);
+  if (!bet || bet < 10) return toast('সর্বনিম্ন ৳১০', 'error');
+  if (mines < 1 || mines > 24) return toast('মাইনস ১-২৪', 'error');
+  if (!placeBet(bet)) return;
+  const grid = Array(25).fill('safe');
+  const positions = [];
+  while (positions.length < mines) {
+    const p = Math.floor(Math.random()*25);
+    if (!positions.includes(p)) positions.push(p);
+  }
+  positions.forEach(p => grid[p] = 'mine');
+  minesState = { bet, mines, grid, revealed: [], gameOver: false, cashedOut: false, multiplier: 1 };
+  renderMines();
+}
+function revealMine(i) {
+  if (minesState.gameOver || minesState.cashedOut || minesState.revealed.includes(i)) return;
+  minesState.revealed.push(i);
+  if (minesState.grid[i] === 'mine') {
+    minesState.gameOver = true;
+    minesState.revealed = minesState.grid.map((c,idx) => c === 'mine' ? idx : -1).filter(x => x >= 0);
+    saveBet('Mines', minesState.bet, 0, 0);
+    toast('💥 বোমায় আঘাত!', 'error');
+  } else {
+    const factor = 25 / (25 - minesState.mines);
+    minesState.multiplier *= factor;
+  }
+  renderMines();
+}
+function cashoutMines() {
+  const win = minesState.bet * minesState.multiplier;
+  recordWin(win);
+  saveBet('Mines', minesState.bet, minesState.multiplier, win);
+  minesState.cashedOut = true;
+  toast(`🎉 জিতেছেন ৳${fmt(win)}!`, 'success');
+  renderMines();
+}
+
+/* --- CRASH --- */
+let crashState = { multiplier: 1, running: false, crashed: false, crashAt: 0, betPlaced: false, betAmount: 0, cashedOut: false };
+function initCrashGame() {
+  crashState = { multiplier: 1, running: false, crashed: false, crashAt: 0, betPlaced: false, betAmount: 0, cashedOut: false };
+  renderCrash();
+}
+function renderCrash() {
+  document.getElementById('gameContent').innerHTML = `
+    <div style="text-align:center">
+      <div class="crash-display">
+        <div class="crash-multiplier ${crashState.crashed?'crashed':''}" id="crashMult">${crashState.multiplier.toFixed(2)}x</div>
+      </div>
+      <div style="margin:20px 0">
+        <label class="form-label">বেট পরিমাণ</label>
+        <input type="number" class="form-input" id="crashBet" value="100" min="10" ${crashState.running?'disabled':''}>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+        ${!crashState.running && !crashState.betPlaced ? `<button class="btn btn-gold" onclick="placeCrashBet()">🚀 বেট রাখুন</button>` : ''}
+        ${crashState.running && crashState.betPlaced && !crashState.cashedOut ? `<button class="btn btn-green" onclick="cashoutCrash()">💰 ক্যাশ আউট ${crashState.multiplier.toFixed(2)}x</button>` : ''}
+        ${!crashState.running ? `<button class="btn btn-outline" onclick="startCrash()">▶️ নতুন রাউন্ড</button>` : ''}
+        ${crashState.crashed || crashState.cashedOut ? `<button class="btn btn-outline" onclick="initCrashGame()">🔄 নতুন গেম</button>` : ''}
+      </div>
+      ${crashState.crashed ? `<div style="margin-top:16px;color:var(--red);font-weight:700;font-size:18px">💥 CRASHED @ ${crashState.crashAt.toFixed(2)}x</div>` : ''}
+      ${crashState.cashedOut ? `<div style="margin-top:16px;color:var(--green);font-weight:700;font-size:18px">🎉 জিতেছেন ৳${fmt(crashState.betAmount * crashState.multiplier)}</div>` : ''}
+    </div>
+  `;
+}
+function placeCrashBet() {
+  const amt = parseFloat(document.getElementById('crashBet').value);
+  if (!amt || amt < 10) return toast('সর্বনিম্ন ৳১০', 'error');
+  if (!placeBet(amt)) return;
+  crashState.betAmount = amt;
+  crashState.betPlaced = true;
+  toast('বেট placed! গেম শুরু করুন', 'success');
+  renderCrash();
+}
+function startCrash() {
+  if (!crashState.betPlaced) return toast('আগে বেট রাখুন', 'error');
+  crashState.running = true;
+  crashState.crashed = false;
+  crashState.cashedOut = false;
+  crashState.multiplier = 1;
+  const r = Math.random();
+  crashState.crashAt = Math.max(1, 0.99 / (1 - r));
+  if (gameInterval) clearInterval(gameInterval);
+  gameInterval = setInterval(() => {
+    crashState.multiplier += 0.02 + (crashState.multiplier * 0.008);
+    if (crashState.multiplier >= crashState.crashAt) {
+      crashState.multiplier = crashState.crashAt;
+      crashState.crashed = true;
+      crashState.running = false;
+      clearInterval(gameInterval);
+      if (crashState.betPlaced && !crashState.cashedOut) {
+        saveBet('Crash', crashState.betAmount, 0, 0);
+        toast('💥 Crash! হেরে গেছেন', 'error');
+      }
+      renderCrash();
+      return;
+    }
+    const el = document.getElementById('crashMult');
+    if (el) el.textContent = crashState.multiplier.toFixed(2) + 'x';
+  }, 80);
+  renderCrash();
+}
+function cashoutCrash() {
+  if (!crashState.running || crashState.cashedOut) return;
+  crashState.cashedOut = true;
+  const win = crashState.betAmount * crashState.multiplier;
+  recordWin(win);
+  saveBet('Crash', crashState.betAmount, crashState.multiplier, win);
+  toast(`🎉 ক্যাশ আউট ৳${fmt(win)} @ ${crashState.multiplier.toFixed(2)}x`, 'success');
+  renderCrash();
+}
+
+/* --- WHEEL --- */
+const WHEEL_SEGMENTS = [
+  { label: '0x', color: '#374151', mult: 0 },
+  { label: '1.5x', color: '#10b981', mult: 1.5 },
+  { label: '2x', color: '#3b82f6', mult: 2 },
+  { label: '0x', color: '#374151', mult: 0 },
+  { label: '3x', color: '#8b5cf6', mult: 3 },
+  { label: '1.5x', color: '#10b981', mult: 1.5 },
+  { label: '5x', color: '#f59e0b', mult: 5 },
+  { label: '0x', color: '#374151', mult: 0 },
+  { label: '2x', color: '#3b82f6', mult: 2 },
+  { label: '10x', color: '#ef4444', mult: 10 },
+  { label: '1.5x', color: '#10b981', mult: 1.5 },
+  { label: '0x', color: '#374151', mult: 0 }
+];
+let wheelState = { rotation: 0, spinning: false, result: undefined };
+function initWheelGame() {
+  wheelState = { rotation: 0, spinning: false, result: undefined };
+  renderWheel();
+}
+function renderWheel() {
+  const segAngle = 360 / WHEEL_SEGMENTS.length;
+  const segments = WHEEL_SEGMENTS.map((s, i) => {
+    const rot = i * segAngle;
+    return `<div style="position:absolute;width:50%;height:50%;top:0;left:50%;transform:rotate(${rot}deg) skewY(-${90-segAngle}deg);background:${s.color};transform-origin:0% 100%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff"><span style="transform:skewY(${90-segAngle}deg) rotate(${segAngle/2}deg);display:block">${s.label}</span></div>`;
+  }).join('');
+  document.getElementById('gameContent').innerHTML = `
+    <div style="text-align:center">
+      <div class="wheel-container">
+        <div class="wheel-pointer"></div>
+        <div class="wheel" id="wheel" style="transform:rotate(${wheelState.rotation}deg)">${segments}</div>
+      </div>
+      <div style="margin:20px 0">
+        <label class="form-label">বেট পরিমাণ</label>
+        <input type="number" class="form-input" id="wheelBet" value="100" min="10" ${wheelState.spinning?'disabled':''}>
+      </div>
+      <button class="btn btn-gold" onclick="spinWheel()" ${wheelState.spinning?'disabled':''}>🎡 স্পিন করুন</button>
+      ${wheelState.result !== undefined ? `<div style="margin-top:16px;font-size:20px;font-weight:800;color:${wheelState.result>0?'var(--green)':'var(--red)'}">${wheelState.result>0?'🎉 জিতেছেন ৳'+fmt(wheelState.result)+'!':'😔 হেরে গেছেন'}</div>` : ''}
+    </div>
+  `;
+}
+function spinWheel() {
+  const amt = parseFloat(document.getElementById('wheelBet').value);
+  if (!amt || amt < 10) return toast('সর্বনিম্ন ৳১০', 'error');
+  if (!placeBet(amt)) return;
+  wheelState.spinning = true;
+  const segAngle = 360 / WHEEL_SEGMENTS.length;
+  const winIdx = Math.floor(Math.random() * WHEEL_SEGMENTS.length);
+  const spins = 5 + Math.random() * 3;
+  const target = 360 * spins + (360 - winIdx * segAngle - segAngle/2);
+  wheelState.rotation += target;
+  const wheel = document.getElementById('wheel');
+  wheel.style.transform = `rotate(${wheelState.rotation}deg)`;
+  setTimeout(() => {
+    wheelState.spinning = false;
+    const seg = WHEEL_SEGMENTS[winIdx];
+    if (seg.mult > 0) {
+      const win = amt * seg.mult;
+      recordWin(win);
+      saveBet('Wheel', amt, seg.mult, win);
+      wheelState.result = win;
+      toast(`🎉 জিতেছেন ৳${fmt(win)}!`, 'success');
+    } else {
+      saveBet('Wheel', amt, 0, 0);
+      wheelState.result = 0;
+      toast('😔 হেরে গেছেন', 'error');
+    }
+    renderWheel();
+  }, 4100);
+}
+
+/* --- ANDAR BAHAR --- */
+function initAndarBahar() {
+  document.getElementById('gameContent').innerHTML = `
+    <div style="text-align:center">
+      <h3>🃏 আন্দর বাহার</h3>
+      <p style="color:var(--muted);margin:10px 0 20px">কার্ড ড্র হওয়ার আগে আন্দর না বাহার বেছে নিন (x2)</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:30px 0">
+        <div style="background:linear-gradient(135deg,#dc2626,#991b1b);padding:40px;border-radius:16px;cursor:pointer;transition:all 0.2s" onclick="playAndarBahar('andar')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          <div style="font-size:50px;margin-bottom:10px">🂡</div>
+          <div style="font-size:24px;font-weight:800">ANDAR</div>
+          <div style="font-size:13px;opacity:0.9;margin-top:6px">x2 গুণক</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#2563eb,#1e40af);padding:40px;border-radius:16px;cursor:pointer;transition:all 0.2s" onclick="playAndarBahar('bahar')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          <div style="font-size:50px;margin-bottom:10px">🂱</div>
+          <div style="font-size:24px;font-weight:800">BAHAR</div>
+          <div style="font-size:13px;opacity:0.9;margin-top:6px">x2 গুণক</div>
+        </div>
+      </div>
+      <div style="margin:20px 0">
+        <label class="form-label">বেট পরিমাণ</label>
+        <input type="number" class="form-input" id="abBet" value="100" min="10">
+      </div>
+      <div id="abResult"></div>
+    </div>
+  `;
+}
+function playAndarBahar(choice) {
+  const amt = parseFloat(document.getElementById('abBet').value);
+  if (!amt || amt < 10) return toast('সর্বনিম্ন ৳১০', 'error');
+  if (!placeBet(amt)) return;
+  const result = Math.random() < 0.5 ? 'andar' : 'bahar';
+  const won = result === choice;
+  let html = `<div style="margin-top:20px;padding:20px;background:var(--card-solid);border-radius:12px;border:1px solid var(--border)">`;
+  html += `<div style="font-size:18px;margin-bottom:10px">🎴 ফলাফল: <strong style="color:var(--gold)">${result.toUpperCase()}</strong></div>`;
+  if (won) {
+    const winAmt = amt * 2;
+    recordWin(winAmt);
+    saveBet('Andar Bahar', amt, 2, winAmt);
+    html += `<div style="color:var(--green);font-weight:700;font-size:18px">🎉 জিতেছেন ৳${fmt(winAmt)}!</div>`;
+  } else {
+    saveBet('Andar Bahar', amt, 0, 0);
+    html += `<div style="color:var(--red);font-weight:700;font-size:18px">😔 হেরে গেছেন</div>`;
+  }
+  html += `</div>`;
+  document.getElementById('abResult').innerHTML = html;
+}
+
+/* --- DRAGON TIGER --- */
+function initDragonTiger() {
+  document.getElementById('gameContent').innerHTML = `
+    <div style="text-align:center">
+      <h3>🐉 ড্রাগন টাইগার</h3>
+      <p style="color:var(--muted);margin:10px 0 20px">কে জিতবে - ড্রাগন না টাইগার? (x2)</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:30px 0">
+        <div style="background:linear-gradient(135deg,#dc2626,#f59e0b);padding:40px;border-radius:16px;cursor:pointer;transition:all 0.2s" onclick="playDragonTiger('dragon')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          <div style="font-size:60px;margin-bottom:10px">🐉</div>
+          <div style="font-size:24px;font-weight:800">DRAGON</div>
+          <div style="font-size:13px;opacity:0.9;margin-top:6px">x2 গুণক</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#10b981,#3b82f6);padding:40px;border-radius:16px;cursor:pointer;transition:all 0.2s" onclick="playDragonTiger('tiger')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          <div style="font-size:60px;margin-bottom:10px">🐅</div>
+          <div style="font-size:24px;font-weight:800">TIGER</div>
+          <div style="font-size:13px;opacity:0.9;margin-top:6px">x2 গুণক</div>
+        </div>
+      </div>
+      <div style="margin:20px 0">
+        <label class="form-label">বেট পরিমাণ</label>
+        <input type="number" class="form-input" id="dtBet" value="100" min="10">
+      </div>
+      <div id="dtResult"></div>
+    </div>
+  `;
+}
+function playDragonTiger(choice) {
+  const amt = parseFloat(document.getElementById('dtBet').value);
+  if (!amt || amt < 10) return toast('সর্বনিম্ন ৳১০', 'error');
+  if (!placeBet(amt)) return;
+  const result = Math.random() < 0.5 ? 'dragon' : 'tiger';
+  const won = result === choice;
+  let html = `<div style="margin-top:20px;padding:20px;background:var(--card-solid);border-radius:12px;border:1px solid var(--border)">`;
+  html += `<div style="font-size:18px;margin-bottom:10px">🏆 বিজয়ী: <strong style="color:var(--gold)">${result === 'dragon' ? '🐉 DRAGON' : '🐅 TIGER'}</strong></div>`;
+  if (won) {
+    const winAmt = amt * 2;
+    recordWin(winAmt);
+    saveBet('Dragon Tiger', amt, 2, winAmt);
+    html += `<div style="color:var(--green);font-weight:700;font-size:18px">🎉 জিতেছেন ৳${fmt(winAmt)}!</div>`;
+  } else {
+    saveBet('Dragon Tiger', amt, 0, 0);
+    html += `<div style="color:var(--red);font-weight:700;font-size:18px">😔 হেরে গেছেন</div>`;
+  }
+  html += `</div>`;
+  document.getElementById('dtResult').innerHTML = html;
+}
+
+/* --- HORSE RACING --- */
+function initHorseRacing() {
+  document.getElementById('gameContent').innerHTML = `
+    <div style="text-align:center">
+      <h3>🏇 হর্স রেসিং</h3>
+      <p style="color:var(--muted);margin:10px 0 20px">আপনার ঘোড়া বেছে নিন (x5)</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:30px 0">
+        ${[1,2,3,4].map(n => {
+          const colors = ['#ef4444', '#10b981', '#3b82f6', '#f59e0b'];
+          return `<div style="background:${colors[n-1]};padding:30px;border-radius:16px;cursor:pointer;transition:all 0.2s" onclick="playHorseRacing(${n})" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            <div style="font-size:50px;margin-bottom:10px">🏇</div>
+            <div style="font-size:20px;font-weight:800;color:#fff">ঘোড়া ${n}</div>
+            <div style="font-size:13px;color:#fff;opacity:0.9;margin-top:6px">x5 গুণক</div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div style="margin:20px 0">
+        <label class="form-label">বেট পরিমাণ</label>
+        <input type="number" class="form-input" id="hrBet" value="100" min="10">
+      </div>
+      <div id="hrResult"></div>
+    </div>
+  `;
+}
+function playHorseRacing(choice) {
+  const amt = parseFloat(document.getElementById('hrBet').value);
+  if (!amt || amt < 10) return toast('সর্বনিম্ন ৳১০', 'error');
+  if (!placeBet(amt)) return;
+  const result = Math.floor(Math.random()*4) + 1;
+  const won = result === choice;
+  let html = `<div style="margin-top:20px;padding:20px;background:var(--card-solid);border-radius:12px;border:1px solid var(--border)">`;
+  html += `<div style="font-size:18px;margin-bottom:10px">🏆 বিজয়ী: <strong style="color:var(--gold)">ঘোড়া ${result}</strong></div>`;
+  if (won) {
+    const winAmt = amt * 5;
+    recordWin(winAmt);
+    saveBet('Horse Racing', amt, 5, winAmt);
+    html += `<div style="color:var(--green);font-weight:700;font-size:18px">🎉 জিতেছেন ৳${fmt(winAmt)}!</div>`;
+  } else {
+    saveBet('Horse Racing', amt, 0, 0);
+    html += `<div style="color:var(--red);font-weight:700;font-size:18px">😔 হেরে গেছেন</div>`;
+  }
+  html += `</div>`;
+  document.getElementById('hrResult').innerHTML = html;
+}
+
+/* ============ ADMIN ============ */
+function showAdminTab(tab, el) {
+  if (el) {
+    document.querySelectorAll('.admin-menu-item').forEach(m => m.classList.remove('active'));
+    el.classList.add('active');
+  }
+  const c = document.getElementById('adminContent');
+  if (tab === 'dashboard') renderAdminDashboard(c);
+  else if (tab === 'users') renderAdminUsers(c);
+  else if (tab === 'bets') renderAdminBets(c);
+  else if (tab === 'deposits') renderAdminDeposits(c);
+  else if (tab === 'withdrawals') renderAdminWithdrawals(c);
+  else if (tab === 'payments') renderAdminPayments(c);
+  else if (tab === 'games') renderAdminGames(c);
+  else if (tab === 'announcements') renderAdminAnnouncements(c);
+  else if (tab === 'settings') renderAdminSettings(c);
+}
+
+function renderAdminDashboard(c) {
+  const users = DB.get('users', []);
+  const bets = DB.get('bets', []);
+  const deps = DB.get('deposits', []);
+  const wds = DB.get('withdrawals', []);
+  const totalDep = deps.filter(d => d.status==='completed').reduce((s,d) => s+d.amount, 0);
+  const totalWd = wds.filter(d => d.status==='completed').reduce((s,d) => s+d.amount, 0);
+  const totalBet = bets.reduce((s,b) => s + b.amount, 0);
+  const totalWin = bets.reduce((s,b) => s + (b.win||0), 0);
+  c.innerHTML = `
+    <h3 style="margin-bottom:22px">📊 ড্যাশবোর্ড ওভারভিউ</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:24px">
+      <div style="background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(245,158,11,0.05));padding:20px;border-radius:14px;border:1px solid var(--gold)"><div style="color:var(--muted);font-size:13px">মোট ইউজার</div><div style="font-size:28px;font-weight:900;color:var(--gold)">${users.length}</div></div>
+      <div style="background:linear-gradient(135deg,rgba(59,130,246,0.1),transparent);padding:20px;border-radius:14px;border:1px solid rgba(59,130,246,0.3)"><div style="color:var(--muted);font-size:13px">মোট বেট</div><div style="font-size:28px;font-weight:900">${bets.length}</div></div>
+      <div style="background:linear-gradient(135deg,rgba(16,185,129,0.1),transparent);padding:20px;border-radius:14px;border:1px solid rgba(16,185,129,0.3)"><div style="color:var(--muted);font-size:13px">মোট ডিপোজিট</div><div style="font-size:28px;font-weight:900;color:var(--green)">৳${fmt(totalDep)}</div></div>
+      <div style="background:linear-gradient(135deg,rgba(239,68,68,0.1),transparent);padding:20px;border-radius:14px;border:1px solid rgba(239,68,68,0.3)"><div style="color:var(--muted);font-size:13px">মোট উইথড্র</div><div style="font-size:28px;font-weight:900;color:var(--red)">৳${fmt(totalWd)}</div></div>
+      <div style="background:linear-gradient(135deg,rgba(139,92,246,0.1),transparent);padding:20px;border-radius:14px;border:1px solid rgba(139,92,246,0.3)"><div style="color:var(--muted);font-size:13px">মোট বাজি</div><div style="font-size:28px;font-weight:900">৳${fmt(totalBet)}</div></div>
+      <div style="background:linear-gradient(135deg,rgba(236,72,153,0.1),transparent);padding:20px;border-radius:14px;border:1px solid rgba(236,72,153,0.3)"><div style="color:var(--muted);font-size:13px">মোট জয়</div><div style="font-size:28px;font-weight:900">৳${fmt(totalWin)}</div></div>
+      <div style="background:linear-gradient(135deg,rgba(255,215,0,0.15),transparent);padding:20px;border-radius:14px;border:1px solid var(--gold)"><div style="color:var(--muted);font-size:13px">পেন্ডিং ডিপো</div><div style="font-size:28px;font-weight:900;color:var(--gold)">${deps.filter(d=>d.status==='pending').length}</div></div>
+      <div style="background:linear-gradient(135deg,rgba(255,215,0,0.15),transparent);padding:20px;border-radius:14px;border:1px solid var(--gold)"><div style="color:var(--muted);font-size:13px">পেন্ডিং উইথড্র</div><div style="font-size:28px;font-weight:900;color:var(--gold)">${wds.filter(d=>d.status==='pending').length}</div></div>
+    </div>
+    <h4 style="margin-bottom:14px">সাম্প্রতিক বেট</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>ইউজার</th><th>গেম</th><th>পরিমাণ</th><th>গুণক</th><th>জয়</th><th>সময়</th></tr></thead>
+        <tbody>
+          ${bets.slice(-10).reverse().map(b => `<tr><td>${b.username}</td><td>${b.game}</td><td>৳${fmt(b.amount)}</td><td>${b.multiplier.toFixed(2)}x</td><td style="color:${b.win>0?'var(--green)':'var(--muted)'}">${b.win>0?'৳'+fmt(b.win):'-'}</td><td>${timeAgo(b.time)}</td></tr>`).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--muted)">কোন বেট নেই</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderAdminUsers(c) {
+  const users = DB.get('users', []);
+  c.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+      <h3>👥 ইউজার ম্যানেজমেন্ট (${users.length})</h3>
+      <input type="text" class="form-input" style="max-width:250px" placeholder="🔍 খুঁজুন..." oninput="filterUsers(this.value)">
+    </div>
+    <div class="table-wrap">
+      <table id="usersTable">
+        <thead><tr><th>নাম</th><th>ইউজারনেম</th><th>ব্যালেন্স</th><th>VIP</th><th>স্ট্যাটাস</th><th>অ্যাকশন</th></tr></thead>
+        <tbody>
+          ${users.map(u => `<tr data-search="${(u.name+u.username+u.email).toLowerCase()}">
+            <td>${u.name}<br><small style="color:var(--muted)">${u.email}</small></td>
+            <td>@${u.username}</td>
+            <td style="color:var(--gold);font-weight:800">৳${fmt(u.balance)}</td>
+            <td><span class="badge badge-violet">${u.vip || 'Bronze'}</span></td>
+            <td><span class="badge ${u.status==='active'?'badge-green':'badge-red'}">${u.status}</span></td>
+            <td>
+              <button class="btn btn-outline" style="padding:6px 10px;font-size:12px" onclick="editBalance('${u.id}')">💰</button>
+              <button class="btn btn-outline" style="padding:6px 10px;font-size:12px" onclick="toggleUser('${u.id}')">${u.status==='active'?'🚫':'✅'}</button>
+              ${u.role!=='admin'?`<button class="btn btn-outline" style="padding:6px 10px;font-size:12px" onclick="deleteUser('${u.id}')">🗑️</button>`:''}
+            </td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+function filterUsers(q) {
+  q = q.toLowerCase();
+  document.querySelectorAll('#usersTable tbody tr').forEach(r => {
+    r.style.display = r.dataset.search.includes(q) ? '' : 'none';
+  });
+}
+function editBalance(id) {
+  const amt = parseFloat(prompt('পরিমাণ (যোগ/বিয়োগ, ঋণাত্মক = বিয়োগ):'));
+  if (isNaN(amt)) return;
+  const users = DB.get('users', []);
+  const u = users.find(x => x.id === id);
+  u.balance = Math.max(0, u.balance + amt);
+  DB.set('users', users);
+  if (currentUser.id === id) { currentUser = u; DB.set('currentUser', u); updateUI(); }
+  const txs = DB.get('transactions', []);
+  txs.push({ id: uid(), userId: id, type: amt>0?'bonus':'bet', amount: Math.abs(amt), status: 'completed', time: Date.now(), note: 'Admin adjustment' });
+  DB.set('transactions', txs);
+  toast('ব্যালেন্স আপডেট হয়েছে', 'success');
+  showAdminTab('users', document.querySelectorAll('.admin-menu-item')[1]);
+}
+function toggleUser(id) {
+  const users = DB.get('users', []);
+  const u = users.find(x => x.id === id);
+  u.status = u.status === 'active' ? 'banned' : 'active';
+  DB.set('users', users);
+  toast(u.status === 'active' ? 'ইউজার সক্রিয়' : 'ইউজার ব্যান', 'success');
+  showAdminTab('users', document.querySelectorAll('.admin-menu-item')[1]);
+}
+function deleteUser(id) {
+  if (!confirm('নিশ্চিত?')) return;
+  let users = DB.get('users', []);
+  users = users.filter(u => u.id !== id);
+  DB.set('users', users);
+  toast('ইউজার মুছে ফেলা হয়েছে', 'success');
+  showAdminTab('users', document.querySelectorAll('.admin-menu-item')[1]);
+}
+
+function renderAdminBets(c) {
+  const bets = DB.get('bets', []).slice().reverse();
+  c.innerHTML = `
+    <h3 style="margin-bottom:16px">🎲 সকল বেট (${bets.length})</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>ইউজার</th><th>গেম</th><th>পরিমাণ</th><th>গুণক</th><th>জয়</th><th>লাভ/ক্ষতি</th><th>সময়</th></tr></thead>
+        <tbody>
+          ${bets.map(b => {
+            const pl = (b.win||0) - b.amount;
+            return `<tr><td>${b.username}</td><td>${b.game}</td><td>৳${fmt(b.amount)}</td><td>${b.multiplier.toFixed(2)}x</td><td style="color:${b.win>0?'var(--green)':'var(--muted)'}">${b.win>0?'৳'+fmt(b.win):'-'}</td><td style="color:${pl>=0?'var(--green)':'var(--red)'}">${pl>=0?'+':''}৳${fmt(pl)}</td><td>${timeAgo(b.time)}</td></tr>`;
+          }).join('') || '<tr><td colspan="7" style="text-align:center;color:var(--muted)">কোন বেট নেই</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderAdminDeposits(c) {
+  const deps = DB.get('deposits', []).slice().reverse();
+  c.innerHTML = `
+    <h3 style="margin-bottom:16px">💳 ডিপোজিট রিকোয়েস্ট (${deps.length})</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>ইউজার</th><th>পরিমাণ</th><th>মেথড</th><th>পেমেন্ট নম্বর</th><th>TrxID</th><th>স্ট্যাটাস</th><th>সময়</th><th>অ্যাকশন</th></tr></thead>
+        <tbody>
+          ${deps.map(d => `<tr>
+            <td>${d.username}</td>
+            <td style="color:var(--gold);font-weight:800">৳${fmt(d.amount)}</td>
+            <td>${d.method}</td>
+            <td><code style="color:var(--muted)">${d.paymentNumber||'-'}</code></td>
+            <td><code>${d.txId}</code></td>
+            <td><span class="badge ${d.status==='completed'?'badge-green':d.status==='pending'?'badge-gold':'badge-red'}">${d.status}</span></td>
+            <td>${timeAgo(d.time)}</td>
+            <td>
+              ${d.status==='pending'?`
+                <button class="btn btn-green" style="padding:6px 10px;font-size:12px" onclick="approveDeposit('${d.id}')">✅</button>
+                <button class="btn btn-red" style="padding:6px 10px;font-size:12px" onclick="rejectDeposit('${d.id}')">❌</button>
+              `:'-'}
+            </td>
+          </tr>`).join('') || '<tr><td colspan="8" style="text-align:center;color:var(--muted)">কোন রিকোয়েস্ট নেই</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+function approveDeposit(id) {
+  const deps = DB.get('deposits', []);
+  const d = deps.find(x => x.id === id);
+  d.status = 'completed';
+  DB.set('deposits', deps);
+  const users = DB.get('users', []);
+  const u = users.find(x => x.id === d.userId);
+  const cfg = DB.get('config');
+  let bonus = 0;
+  if (cfg.depositBonus > 0) {
+    bonus = Math.min(d.amount * cfg.depositBonus / 100, cfg.maxDepositBonus);
+  }
+  u.balance += d.amount + bonus;
+  DB.set('users', users);
+  if (currentUser.id === u.id) { currentUser = u; DB.set('currentUser', u); updateUI(); }
+  const txs = DB.get('transactions', []);
+  const t = txs.find(x => x.userId === d.userId && x.type === 'deposit' && x.status === 'pending');
+  if (t) t.status = 'completed';
+  if (bonus > 0) {
+    txs.push({ id: uid(), userId: u.id, type: 'bonus', amount: bonus, status: 'completed', time: Date.now(), note: 'ডিপোজিট বোনাস' });
+  }
+  DB.set('transactions', txs);
+  toast(`✅ ডিপোজিট অনুমোদিত${bonus > 0 ? ' + ৳'+fmt(bonus)+' বোনাস' : ''}`, 'success');
+  showAdminTab('deposits', document.querySelectorAll('.admin-menu-item')[3]);
+}
+function rejectDeposit(id) {
+  const deps = DB.get('deposits', []);
+  const d = deps.find(x => x.id === id);
+  d.status = 'rejected';
+  DB.set('deposits', deps);
+  const txs = DB.get('transactions', []);
+  const t = txs.find(x => x.userId === d.userId && x.type === 'deposit' && x.status === 'pending');
+  if (t) t.status = 'rejected';
+  DB.set('transactions', txs);
+  toast('ডিপোজিট বাতিল', 'error');
+  showAdminTab('deposits', document.querySelectorAll('.admin-menu-item')[3]);
+}
+
+function renderAdminWithdrawals(c) {
+  const wds = DB.get('withdrawals', []).slice().reverse();
+  c.innerHTML = `
+    <h3 style="margin-bottom:16px">💸 উইথড্র রিকোয়েস্ট (${wds.length})</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>ইউজার</th><th>পরিমাণ</th><th>মেথড</th><th>অ্যাকাউন্ট</th><th>স্ট্যাটাস</th><th>সময়</th><th>অ্যাকশন</th></tr></thead>
+        <tbody>
+          ${wds.map(w => `<tr>
+            <td>${w.username}</td>
+            <td style="color:var(--gold);font-weight:800">৳${fmt(w.amount)}</td>
+            <td>${w.method}</td>
+            <td><code>${w.account}</code></td>
+            <td><span class="badge ${w.status==='completed'?'badge-green':w.status==='pending'?'badge-gold':'badge-red'}">${w.status}</span></td>
+            <td>${timeAgo(w.time)}</td>
+            <td>
+              ${w.status==='pending'?`
+                <button class="btn btn-green" style="padding:6px 10px;font-size:12px" onclick="approveWithdraw('${w.id}')">✅</button>
+                <button class="btn btn-red" style="padding:6px 10px;font-size:12px" onclick="rejectWithdraw('${w.id}')">❌</button>
+              `:'-'}
+            </td>
+          </tr>`).join('') || '<tr><td colspan="7" style="text-align:center;color:var(--muted)">কোন রিকোয়েস্ট নেই</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+function approveWithdraw(id) {
+  const wds = DB.get('withdrawals', []);
+  const w = wds.find(x => x.id === id);
+  w.status = 'completed';
+  DB.set('withdrawals', wds);
+  const txs = DB.get('transactions', []);
+  const t = txs.find(x => x.userId === w.userId && x.type === 'withdraw' && x.status === 'pending');
+  if (t) t.status = 'completed';
+  DB.set('transactions', txs);
+  toast('✅ উইথড্র অনুমোদিত', 'success');
+  showAdminTab('withdrawals', document.querySelectorAll('.admin-menu-item')[4]);
+}
+function rejectWithdraw(id) {
+  const wds = DB.get('withdrawals', []);
+  const w = wds.find(x => x.id === id);
+  w.status = 'rejected';
+  DB.set('withdrawals', wds);
+  const users = DB.get('users', []);
+  const u = users.find(x => x.id === w.userId);
+  u.balance += w.amount;
+  DB.set('users', users);
+  if (currentUser.id === u.id) { currentUser = u; DB.set('currentUser', u); updateUI(); }
+  const txs = DB.get('transactions', []);
+  const t = txs.find(x => x.userId === w.userId && x.type === 'withdraw' && x.status === 'pending');
+  if (t) t.status = 'rejected';
+  DB.set('transactions', txs);
+  toast('উইথড্র বাতিল - ফেরত দেওয়া হয়েছে', 'success');
+  showAdminTab('withdrawals', document.querySelectorAll('.admin-menu-item')[4]);
+}
+
+/* --- PAYMENT NUMBERS MANAGEMENT (KEY FEATURE) --- */
+function renderAdminPayments(c) {
+  const payments = DB.get('paymentNumbers');
+  c.innerHTML = `
+    <h3 style="margin-bottom:8px">💰 পেমেন্ট নম্বর ম্যানেজমেন্ট</h3>
+    <p style="color:var(--muted);margin-bottom:20px;font-size:14px">ইউজাররা ডিপোজিট করবে এই নম্বরগুলোতে। আপনি যেকোনো সময় পরিবর্তন করতে পারবেন।</p>
+    <div style="display:grid;gap:16px">
+      ${['bkash', 'nagad', 'rocket'].map(method => {
+        const p = payments[method];
+        const icons = { bkash: '💗', nagad: '💚', rocket: '🚀' };
+        const names = { bkash: 'বিকাশ', nagad: 'নগদ', rocket: 'রকেট' };
+        const colors = { bkash: '#e2136e', nagad: '#e5710b', rocket: '#8b2ec4' };
+        return `
+          <div style="background:var(--card-solid);padding:20px;border-radius:14px;border:1px solid var(--border)">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+              <div style="width:50px;height:50px;border-radius:12px;background:${colors[method]};display:flex;align-items:center;justify-content:center;font-size:26px">${icons[method]}</div>
+              <div>
+                <div style="font-size:18px;font-weight:800">${names[method]}</div>
+                <div style="color:var(--muted);font-size:13px">পেমেন্ট গেটওয়ে</div>
+              </div>
+              <label style="margin-left:auto;display:flex;align-items:center;gap:8px;cursor:pointer">
+                <input type="checkbox" id="active_${method}" ${p.active?'checked':''} onchange="togglePaymentActive('${method}', this.checked)">
+                <span style="font-size:13px">${p.active?'✅ সক্রিয়':'❌ বন্ধ'}</span>
+              </label>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">পেমেন্ট নম্বর</label>
+                <input type="text" class="form-input" id="num_${method}" value="${p.number}" placeholder="01XXXXXXXXX">
+              </div>
+              <div class="form-group">
+                <label class="form-label">ধরন</label>
+                <select class="form-select" id="type_${method}">
+                  <option value="Personal" ${p.type==='Personal'?'selected':''}>Personal</option>
+                  <option value="Agent" ${
